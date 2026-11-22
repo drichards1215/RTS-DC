@@ -3,10 +3,86 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Romancing the Stone DC</title>
+  <title>Quick Note &amp; Counter</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 0 16px;
+      background: #f6f8fa;
+      color: #1f2328;
+    }
+    .card {
+      background: #ffffff;
+      border: 1px solid #d0d7de;
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .row {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    input {
+      flex: 1;
+      padding: 8px 10px;
+      border: 1px solid #d0d7de;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+    button {
+      padding: 8px 14px;
+      border: 1px solid #1f883d;
+      background: #1f883d;
+      color: #ffffff;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    button:hover {
+      background: #1a7f37;
+    }
+    #noteDisplay {
+      margin-top: 16px;
+      padding: 12px;
+      background: #f6f8fa;
+      border-radius: 6px;
+      min-height: 24px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Romancing the Stone Washington, DC</h1>
-  <p>Welcome to RTS-DC.</p>
+  <div class="card">
+    <h1>Quick Note</h1>
+    <p>Type a note below and save it to your browser.</p>
+
+    <div class="row">
+      <input id="noteInput" type="text" placeholder="Write a quick note..." />
+      <button id="saveBtn" type="button">Save</button>
+    </div>
+
+    <div id="noteDisplay"></div>
+  </div>
+
+  <script>
+    const input = document.getElementById("noteInput");
+    const button = document.getElementById("saveBtn");
+    const display = document.getElementById("noteDisplay");
+    const STORAGE_KEY = "gh_pages_quick_note";
+
+    function renderNote(text) {
+      display.textContent = text ? "Saved note: " + text : "No note saved yet.";
+    }
+
+    renderNote(localStorage.getItem(STORAGE_KEY) || "");
+
+    button.addEventListener("click", () => {
+      const value = input.value.trim();
+      localStorage.setItem(STORAGE_KEY, value);
+      renderNote(value);
+      input.value = "";
+    });
+  </script>
 </body>
 </html>
