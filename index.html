@@ -3,86 +3,217 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quick Note &amp; Counter</title>
+  <title>D.C. Public Art &amp; Statues Database</title>
   <style>
+    :root {
+      --bg: #f6f8fa;
+      --card: #ffffff;
+      --text: #1f2328;
+      --muted: #656d76;
+      --border: #d0d7de;
+      --accent: #0969da;
+    }
     body {
       font-family: system-ui, -apple-system, sans-serif;
-      max-width: 600px;
-      margin: 40px auto;
+      max-width: 820px;
+      margin: 32px auto;
       padding: 0 16px;
-      background: #f6f8fa;
-      color: #1f2328;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
     }
-    .card {
-      background: #ffffff;
-      border: 1px solid #d0d7de;
-      border-radius: 10px;
-      padding: 20px;
+    header {
+      margin-bottom: 20px;
     }
-    .row {
+    h1 {
+      margin: 0 0 6px;
+      font-size: 1.65rem;
+    }
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+    }
+    .controls {
       display: flex;
-      gap: 8px;
-      margin-top: 12px;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    input, select {
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      background: var(--card);
     }
     input {
+      flex: 2;
+      min-width: 220px;
+    }
+    select {
       flex: 1;
-      padding: 8px 10px;
-      border: 1px solid #d0d7de;
-      border-radius: 6px;
-      font-size: 1rem;
+      min-width: 170px;
     }
-    button {
-      padding: 8px 14px;
-      border: 1px solid #1f883d;
-      background: #1f883d;
-      color: #ffffff;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 1rem;
+    .count {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 12px;
     }
-    button:hover {
-      background: #1a7f37;
+    .grid {
+      display: grid;
+      gap: 14px;
     }
-    #noteDisplay {
-      margin-top: 16px;
-      padding: 12px;
-      background: #f6f8fa;
-      border-radius: 6px;
-      min-height: 24px;
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .card h2 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+    .badge {
+      font-size: 0.8rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #ddf4ff;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .meta {
+      margin: 6px 0 10px;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+    .map-link {
+      display: inline-block;
+      margin-top: 8px;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+    }
+    .map-link:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Quick Note</h1>
-    <p>Type a note below and save it to your browser.</p>
+  <header>
+    <h1>Washington, D.C. Public Art &amp; Statues</h1>
+    <p class="subtitle">Searchable catalog of monuments, sculptures, and outdoor art across the District.</p>
+  </header>
 
-    <div class="row">
-      <input id="noteInput" type="text" placeholder="Write a quick note..." />
-      <button id="saveBtn" type="button">Save</button>
-    </div>
-
-    <div id="noteDisplay"></div>
+  <div class="controls">
+    <input id="searchInput" type="search" placeholder="Search by name, artist, material, or keyword..." />
+    <select id="neighborhoodFilter">
+      <option value="">All Neighborhoods / Areas</option>
+    </select>
   </div>
 
-  <script>
-    const input = document.getElementById("noteInput");
-    const button = document.getElementById("saveBtn");
-    const display = document.getElementById("noteDisplay");
-    const STORAGE_KEY = "gh_pages_quick_note";
+  <div id="resultCount" class="count">Loading database...</div>
+  <div id="artList" class="grid"></div>
 
-    function renderNote(text) {
-      display.textContent = text ? "Saved note: " + text : "No note saved yet.";
+  <script>
+    let allArtworks = [];
+
+    const searchInput = document.getElementById("searchInput");
+    const neighborhoodFilter = document.getElementById("neighborhoodFilter");
+    const resultCount = document.getElementById("resultCount");
+    const artList = document.getElementById("artList");
+
+    async function loadDatabase() {
+      try {
+        const response = await fetch("./artworks.json");
+        if (!response.ok) throw new Error("Failed to load artworks.json");
+        allArtworks = await response.json();
+        populateNeighborhoods(allArtworks);
+        renderArtworks();
+      } catch (err) {
+        resultCount.textContent = "Error loading database. Check that artworks.json is valid JSON.";
+        console.error(err);
+      }
     }
 
-    renderNote(localStorage.getItem(STORAGE_KEY) || "");
+    function populateNeighborhoods(items) {
+      const areas = [...new Set(items.map(item => item.neighborhood))].sort();
+      areas.forEach(area => {
+        const option = document.createElement("option");
+        option.value = area;
+        option.textContent = area;
+        neighborhoodFilter.appendChild(option);
+      });
+    }
 
-    button.addEventListener("click", () => {
-      const value = input.value.trim();
-      localStorage.setItem(STORAGE_KEY, value);
-      renderNote(value);
-      input.value = "";
-    });
+    function renderArtworks() {
+      const query = searchInput.value.trim().toLowerCase();
+      const selectedArea = neighborhoodFilter.value;
+
+      const filtered = allArtworks.filter(item => {
+        const matchesArea = !selectedArea || item.neighborhood === selectedArea;
+        const searchableText = [
+          item.title,
+          item.artist,
+          item.material,
+          item.neighborhood,
+          item.location,
+          item.description,
+          String(item.year)
+        ].join(" ").toLowerCase();
+
+        return matchesArea && searchableText.includes(query);
+      });
+
+      resultCount.textContent = `Showing ${filtered.length} of ${allArtworks.length} entries`;
+      artList.innerHTML = "";
+
+      filtered.forEach(item => {
+        const card = document.createElement("article");
+        card.className = "card";
+
+        const header = document.createElement("div");
+        header.className = "card-header";
+
+        const title = document.createElement("h2");
+        title.textContent = `${item.title} (${item.year})`;
+
+        const badge = document.createElement("span");
+        badge.className = "badge";
+        badge.textContent = item.neighborhood;
+
+        header.append(title, badge);
+
+        const meta = document.createElement("div");
+        meta.className = "meta";
+        meta.textContent = `Artist: ${item.artist} • Material: ${item.material} • Height: ${item.height_ft} ft`;
+
+        const desc = document.createElement("p");
+        desc.textContent = item.description;
+
+        const mapLink = document.createElement("a");
+        mapLink.className = "map-link";
+        mapLink.href = `https://www.google.com/maps/search/?api=1&query=${item.lat},${item.lng}`;
+        mapLink.target = "_blank";
+        mapLink.rel = "noopener noreferrer";
+        mapLink.textContent = `📍 ${item.location} ↗`;
+
+        card.append(header, meta, desc, mapLink);
+        artList.appendChild(card);
+      });
+    }
+
+    searchInput.addEventListener("input", renderArtworks);
+    neighborhoodFilter.addEventListener("change", renderArtworks);
+
+    loadDatabase();
   </script>
 </body>
 </html>
