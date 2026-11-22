@@ -1,0 +1,72 @@
+[
+  {
+    "id": "lincoln-memorial",
+    "title": "Abraham Lincoln",
+    "artist": "Daniel Chester French",
+    "year": 1922,
+    "type": "Statue",
+    "material": "Georgia white marble",
+    "height_ft": 19,
+    "neighborhood": "National Mall",
+    "location": "Lincoln Memorial, 2 Lincoln Memorial Cir NW",
+    "lat": 38.8893,
+    "lng": -77.0502,
+    "description": "Monumental seated sculpture of the 16th U.S. President gazing east toward the Reflecting Pool and Washington Monument."
+  },
+  {
+    "id": "mlk-memorial",
+    "title": "Stone of Hope (Dr. Martin Luther King Jr.)",
+    "artist": "Lei Yixin",
+    "year": 2011,
+    "type": "Monumental Relief / Statue",
+    "material": "Shrimp Pink granite",
+    "height_ft": 30,
+    "neighborhood": "Tidal Basin / West Potomac Park",
+    "location": "1964 Independence Ave SW",
+    "lat": 38.8862,
+    "lng": -77.0442,
+    "description": "Carved likeness of civil rights leader Dr. Martin Luther King Jr. emerging from the 'Stone of Hope' beyond the 'Mountain of Despair.'"
+  },
+  {
+    "id": "thomas-jefferson",
+    "title": "Thomas Jefferson",
+    "artist": "Rudulph Evans",
+    "year": 1947,
+    "type": "Statue",
+    "material": "Bronze",
+    "height_ft": 19,
+    "neighborhood": "Tidal Basin",
+    "location": "Thomas Jefferson Memorial, 16 E Basin Dr SW",
+    "lat": 38.8814,
+    "lng": -77.0365,
+    "description": "Standing bronze figure of the 3rd U.S. President holding the Declaration of Independence inside the neoclassical rotunda."
+  },
+  {
+    "id": "statue-of-freedom",
+    "title": "Statue of Freedom",
+    "artist": "Thomas Crawford",
+    "year": 1863,
+    "type": "Allegorical Statue",
+    "material": "Bronze",
+    "height_ft": 19.5,
+    "neighborhood": "Capitol Hill",
+    "location": "Atop the U.S. Capitol Dome",
+    "lat": 38.8899,
+    "lng": -77.0091,
+    "description": "Classical female allegorical figure representing Freedom, wearing a crested helmet and crowning the dome of the U.S. Capitol."
+  },
+  {
+    "id": "albert-einstein",
+    "title": "Albert Einstein Memorial",
+    "artist": "Robert Berks",
+    "year": 1979,
+    "type": "Sculpture",
+    "material": "Bronze on Mount Airy granite",
+    "height_ft": 12,
+    "neighborhood": "Foggy Bottom",
+    "location": "National Academy of Sciences, 2101 Constitution Ave NW",
+    "lat": 38.8926,
+    "lng": -77.0481,
+    "description": "Seated bronze sculpture of physicist Albert Einstein holding papers inscribed with three of his major scientific equations, overlooking a celestial star map."
+  }
+]
