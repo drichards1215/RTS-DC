@@ -4,15 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>D.C. Public Art &amp; Statues Database</title>
-
-  <!-- Leaflet Map CSS -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    crossorigin=""
-  />
-
   <style>
     :root {
       --bg: #f6f8fa;
@@ -42,6 +33,23 @@
       margin: 0;
       color: var(--muted);
     }
+    .map-embed-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      min-height: 360px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 16px;
+      background: var(--card);
+    }
+    .map-embed-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
     .controls {
       display: flex;
       flex-wrap: wrap;
@@ -54,6 +62,7 @@
       border-radius: 8px;
       font-size: 1rem;
       background: var(--card);
+      color: var(--text);
     }
     input {
       flex: 2;
@@ -62,14 +71,6 @@
     select {
       flex: 1;
       min-width: 180px;
-    }
-    #map {
-      height: 380px;
-      width: 100%;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      margin-bottom: 14px;
-      z-index: 1;
     }
     .count {
       font-size: 0.9rem;
@@ -143,42 +144,36 @@
       font-size: 0.9rem;
       color: var(--muted);
     }
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 10px;
-      align-items: center;
-    }
-    .map-link, .focus-btn {
+    .map-link {
+      display: inline-block;
+      margin-top: 8px;
       color: var(--accent);
       font-size: 0.92rem;
       font-weight: 500;
       text-decoration: none;
-      background: none;
-      border: none;
-      padding: 0;
-      cursor: pointer;
-      font-family: inherit;
     }
-    .map-link:hover, .focus-btn:hover {
+    .map-link:hover {
       text-decoration: underline;
-    }
-    .popup-img {
-      width: 100%;
-      max-height: 130px;
-      object-fit: cover;
-      border-radius: 6px;
-      margin: 6px 0;
-      display: block;
     }
   </style>
 </head>
 <body>
   <header>
     <h1>Washington, D.C. Public Art &amp; Statues</h1>
-    <p class="subtitle">Interactive map and searchable catalog of monuments, sculptures, and outdoor art across the District.</p>
+    <p class="subtitle">Embedded map and searchable catalog of monuments, sculptures, and outdoor art across the District.</p>
   </header>
+
+  <div class="map-embed-wrap">
+    <iframe
+      src="https://www.google.com/maps/d/embed?mid=1Ct2PzuSYKYIbhtWQBRulAs7N7hEk0RbG&ehbc=2E312F"
+      width="640"
+      height="480"
+      style="border: 0;"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      title="Washington, D.C. Public Art &amp; Statues Map">
+    </iframe>
+  </div>
 
   <div class="controls">
     <input id="searchInput" type="search" placeholder="Search by name, artist, material, or keyword..." />
@@ -187,35 +182,16 @@
     </select>
   </div>
 
-  <div id="map" aria-label="Interactive map of Washington D.C. statues"></div>
-
   <div id="resultCount" class="count">Loading database...</div>
   <div id="artList" class="grid"></div>
 
-  <!-- Leaflet Map JS -->
-  <script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""
-  ></script>
-
   <script>
     let allArtworks = [];
-    const markersById = {};
 
     const searchInput = document.getElementById("searchInput");
     const neighborhoodFilter = document.getElementById("neighborhoodFilter");
     const resultCount = document.getElementById("resultCount");
     const artList = document.getElementById("artList");
-
-    // Initialize Leaflet map centered on Washington, D.C.
-    const map = L.map("map").setView([38.8895, -77.0353], 13);
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 19,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
-
-    const markerLayer = L.layerGroup().addTo(map);
 
     async function loadDatabase() {
       try {
@@ -240,38 +216,6 @@
       });
     }
 
-    function buildPopupContent(item) {
-      const wrapper = document.createElement("div");
-      wrapper.style.maxWidth = "220px";
-
-      const title = document.createElement("strong");
-      title.textContent = `${item.title} (${item.year})`;
-      wrapper.appendChild(title);
-
-      const artist = document.createElement("div");
-      artist.style.fontSize = "0.85rem";
-      artist.style.color = "#555";
-      artist.textContent = item.artist;
-      wrapper.appendChild(artist);
-
-      if (item.image) {
-        const img = document.createElement("img");
-        img.src = item.image;
-        img.alt = item.title;
-        img.className = "popup-img";
-        img.onerror = () => img.remove();
-        wrapper.appendChild(img);
-      }
-
-      const loc = document.createElement("div");
-      loc.style.fontSize = "0.82rem";
-      loc.style.marginTop = "4px";
-      loc.textContent = item.location;
-      wrapper.appendChild(loc);
-
-      return wrapper;
-    }
-
     function renderArtworks() {
       const query = searchInput.value.trim().toLowerCase();
       const selectedArea = neighborhoodFilter.value;
@@ -293,22 +237,8 @@
 
       resultCount.textContent = `Showing ${filtered.length} of ${allArtworks.length} entries`;
       artList.innerHTML = "";
-      markerLayer.clearLayers();
-      Object.keys(markersById).forEach(key => delete markersById[key]);
-
-      const bounds = [];
 
       filtered.forEach(item => {
-        // 1. Add Map Marker
-        if (typeof item.lat === "number" && typeof item.lng === "number") {
-          const marker = L.marker([item.lat, item.lng])
-            .bindPopup(buildPopupContent(item))
-            .addTo(markerLayer);
-          markersById[item.id] = marker;
-          bounds.push([item.lat, item.lng]);
-        }
-
-        // 2. Build Card
         const card = document.createElement("article");
         card.className = item.image ? "card" : "card no-image";
 
@@ -351,54 +281,4 @@
 
         header.append(title, badge);
 
-        const meta = document.createElement("div");
-        meta.className = "meta";
-        meta.textContent = `Artist: ${item.artist} • Material: ${item.material} • Height: ${item.height_ft} ft`;
-
-        const desc = document.createElement("p");
-        desc.textContent = item.description;
-
-        const actions = document.createElement("div");
-        actions.className = "actions";
-
-        if (markersById[item.id]) {
-          const focusBtn = document.createElement("button");
-          focusBtn.type = "button";
-          focusBtn.className = "focus-btn";
-          focusBtn.textContent = "🗺️ Focus on map";
-          focusBtn.addEventListener("click", () => {
-            document.getElementById("map").scrollIntoView({ behavior: "smooth", block: "center" });
-            map.setView([item.lat, item.lng], 16);
-            markersById[item.id].openPopup();
-          });
-          actions.appendChild(focusBtn);
-        }
-
-        const mapLink = document.createElement("a");
-        mapLink.className = "map-link";
-        mapLink.href = `https://www.google.com/maps/search/?api=1&query=${item.lat},${item.lng}`;
-        mapLink.target = "_blank";
-        mapLink.rel = "noopener noreferrer";
-        mapLink.textContent = `📍 Open in Google Maps (${item.location}) ↗`;
-        actions.appendChild(mapLink);
-
-        body.append(header, meta, desc, actions);
-        card.appendChild(body);
-        artList.appendChild(card);
-      });
-
-      // Auto-fit map bounds to visible pins
-      if (bounds.length > 1) {
-        map.fitBounds(bounds, { padding: [35, 35] });
-      } else if (bounds.length === 1) {
-        map.setView(bounds[0], 15);
-      }
-    }
-
-    searchInput.addEventListener("input", renderArtworks);
-    neighborhoodFilter.addEventListener("change", renderArtworks);
-
-    loadDatabase();
-  </script>
-</body>
-</html>
+        const meta = document.createElement("div
