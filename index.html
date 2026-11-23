@@ -3,358 +3,239 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>D.C. Public Art &amp; Statues Database</title>
+  <title>Romancing the Stone | Washington, DC</title>
   <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
   <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
   <style>
-    :root {
-      --bg: #f6f8fa;
-      --card: #ffffff;
-      --text: #1f2328;
-      --muted: #656d76;
-      --border: #d0d7de;
-      --accent: #0969da;
-    }
-    body {
-      font-family: system-ui, -apple-system, sans-serif;
-      max-width: 900px;
-      margin: 28px auto;
-      padding: 0 16px;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-    }
-    .site-title {
+    /* ----- Styles used only on the landing page ----- */
+    .hero {
       text-align: center;
-      margin-bottom: 20px;
+      padding: 48px 16px 20px;
     }
-    .site-title .name {
-      margin: 0;
-      font-size: 2.4rem;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-    }
-    .site-title .place {
-      margin: 2px 0 0;
-      font-size: 1.15rem;
-      color: var(--muted);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-    nav {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--border);
-    }
-    nav a {
-      text-decoration: none;
-      color: var(--text);
-      font-weight: 600;
-      padding: 6px 12px;
-      border-radius: 6px;
-    }
-    nav a:hover {
-      background: #eaeef2;
-    }
-    nav a.active {
-      background: #ddf4ff;
-      color: var(--accent);
-    }
-    header {
+    .hero-emblem {
+      width: 110px;
+      height: auto;
       margin-bottom: 18px;
     }
-    h1 {
-      margin: 0 0 6px;
-      font-size: 1.65rem;
+    .hero-kicker {
+      font-family: var(--heading-font);
+      font-size: .85rem;
+      letter-spacing: .35em;
+      text-transform: uppercase;
+      color: var(--laurel);
+      margin: 0 0 10px;
     }
-    .subtitle {
+    .hero h1 {
       margin: 0;
-      color: var(--muted);
+      font-size: clamp(2rem, 7vw, 3.6rem);
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
     }
-    .map-embed-wrap {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      min-height: 360px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 16px;
-      background: var(--card);
+    .hero .place {
+      font-family: var(--heading-font);
+      font-size: clamp(1rem, 3vw, 1.35rem);
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: var(--pompeii);
+      margin: 8px 0 0;
     }
-    .map-embed-wrap iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
+    .hero .lede {
+      max-width: 620px;
+      margin: 22px auto 28px;
+      font-size: 1.35rem;
+      font-style: italic;
+      color: var(--ink-soft);
     }
-    .controls {
+    .hero-actions {
       display: flex;
+      justify-content: center;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 14px;
+      gap: 12px;
     }
-    input, select {
-      padding: 10px 12px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      font-size: 1rem;
-      background: var(--card);
-      color: var(--text);
+
+    /* Inscription stat band */
+    .inscription {
+      margin: 44px auto 0;
+      max-width: 720px;
+      padding: 26px 20px;
+      text-align: center;
     }
-    input {
-      flex: 2;
-      min-width: 220px;
+    .inscription .numeral {
+      font-family: var(--heading-font);
+      font-size: clamp(2rem, 6vw, 3rem);
+      font-weight: 700;
+      letter-spacing: .12em;
+      color: var(--pompeii);
+      line-height: 1;
     }
-    select {
-      flex: 1;
-      min-width: 180px;
-    }
-    .count {
-      font-size: 0.9rem;
-      color: var(--muted);
-      margin-bottom: 12px;
-    }
-    .grid {
-      display: grid;
-      gap: 16px;
-    }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-      display: grid;
-      grid-template-columns: 240px 1fr;
-    }
-    .card.no-image {
-      grid-template-columns: 1fr;
-    }
-    @media (max-width: 660px) {
-      .card {
-        grid-template-columns: 1fr;
-      }
-    }
-    .card-media {
-      background: #eaeef2;
-      display: flex;
-      flex-direction: column;
-    }
-    .card-media img {
-      width: 100%;
-      height: 100%;
-      min-height: 190px;
-      max-height: 260px;
-      object-fit: cover;
-      display: block;
-    }
-    .photo-credit {
-      font-size: 0.75rem;
-      color: var(--muted);
-      padding: 4px 8px;
-      background: #f6f8fa;
-      border-top: 1px solid var(--border);
-    }
-    .card-body {
-      padding: 18px;
-    }
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .card h2 {
-      margin: 0;
-      font-size: 1.2rem;
-    }
-    .badge {
-      font-size: 0.8rem;
-      padding: 2px 8px;
-      border-radius: 999px;
-      background: #ddf4ff;
-      color: var(--accent);
-      font-weight: 600;
-    }
-    .meta {
-      margin: 6px 0 10px;
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-    .map-link {
-      display: inline-block;
+    .inscription .numeral-label {
+      font-family: var(--heading-font);
+      font-size: .85rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
       margin-top: 8px;
-      color: var(--accent);
-      font-size: 0.92rem;
-      font-weight: 500;
-      text-decoration: none;
     }
-    .map-link:hover {
-      text-decoration: underline;
+    .inscription .numeral-note {
+      font-style: italic;
+      color: var(--ink-soft);
+      font-size: 1rem;
+    }
+
+    /* Three fresco panels */
+    .panels {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-top: 44px;
+    }
+    .panel {
+      padding: 28px 24px 26px;
+      text-align: center;
+      text-decoration: none;
+      color: var(--ink);
+      border-top: 3px solid var(--gold);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .panel:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(60, 40, 20, .14);
+      color: var(--ink);
+    }
+    .panel .numeral-tag {
+      font-family: var(--heading-font);
+      color: var(--gold);
+      letter-spacing: .2em;
+      font-size: .9rem;
+    }
+    .panel h2 {
+      margin: 6px 0 8px;
+      font-size: 1.15rem;
+      text-transform: uppercase;
+      color: var(--pompeii);
+    }
+    .panel p {
+      margin: 0;
+      font-size: 1.1rem;
+      color: var(--ink-soft);
+    }
+
+    .motto {
+      text-align: center;
+      margin-top: 50px;
+    }
+    .motto .latin {
+      font-family: var(--heading-font);
+      font-size: 1.3rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+    }
+    .motto .translation {
+      font-style: italic;
+      color: var(--ink-soft);
     }
   </style>
 </head>
 <body>
-  <div class="site-title">
-    <p class="name">Romancing the Stone</p>
-    <p class="place">Washington, DC</p>
-  </div>
-
-  <nav aria-label="Site navigation">
-    <a href="./index.html" class="active">Map &amp; Catalog</a>
-    <a href="./instagram.html">Instagram (@romancingthestonedc)</a>
-  </nav>
-
-  <header>
-    <h1>Washington, D.C. Public Art &amp; Statues</h1>
-    <p class="subtitle">Embedded map and searchable catalog of monuments, sculptures, and outdoor art across the District.</p>
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Site navigation" style="margin-top:0">
+      <a href="./index.html" class="active">Home</a>
+      <a href="./map.html">Map &amp; Catalog</a>
+      <a href="./instagram.html">Instagram</a>
+    </nav>
   </header>
+  <div class="meander" aria-hidden="true"></div>
 
-  <div class="map-embed-wrap">
-    <iframe
-      src="https://www.google.com/maps/d/embed?mid=1Ct2PzuSYKYIbhtWQBRulAs7N7hEk0RbG&ehbc=2E312F"
-      width="640"
-      height="480"
-      style="border: 0;"
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade"
-      title="Washington, D.C. Public Art &amp; Statues Map">
-    </iframe>
-  </div>
+  <main class="wrap">
+    <section class="hero">
+      <!-- Temple emblem -->
+      <svg class="hero-emblem" viewBox="0 0 120 100" aria-hidden="true">
+        <polygon points="60,6 112,30 8,30" fill="none" stroke="#b08a3e" stroke-width="3" stroke-linejoin="round"/>
+        <circle cx="60" cy="21" r="4" fill="#9b2d20"/>
+        <rect x="10" y="32" width="100" height="6" fill="#b08a3e"/>
+        <g fill="#b08a3e">
+          <rect x="18" y="42" width="8" height="38"/>
+          <rect x="38" y="42" width="8" height="38"/>
+          <rect x="56" y="42" width="8" height="38"/>
+          <rect x="74" y="42" width="8" height="38"/>
+          <rect x="94" y="42" width="8" height="38"/>
+        </g>
+        <rect x="8" y="82" width="104" height="5" fill="#b08a3e"/>
+        <rect x="2" y="89" width="116" height="5" fill="#9b2d20"/>
+      </svg>
 
-  <div class="controls">
-    <input id="searchInput" type="search" placeholder="Search by name, artist, material, or keyword..." />
-    <select id="neighborhoodFilter">
-      <option value="">All Neighborhoods / Areas</option>
-    </select>
-  </div>
+      <p class="hero-kicker">Statues · Monuments · Public Art</p>
+      <h1>Romancing the Stone</h1>
+      <p class="place">Washington, DC</p>
+      <p class="lede">A field guide to the marble, bronze, and stone of a capital built in the image of Rome.</p>
+      <div class="hero-actions">
+        <a class="btn" href="./map.html">Explore the Map &amp; Catalog</a>
+        <a class="btn ghost" href="./instagram.html">Follow on Instagram</a>
+      </div>
+    </section>
 
-  <div id="resultCount" class="count">Loading database...</div>
-  <div id="artList" class="grid"></div>
+    <div class="inscription tablet">
+      <div class="numeral" id="romanCount">—</div>
+      <div class="numeral-label" id="countLabel">Works catalogued</div>
+      <div class="numeral-note" id="countNote">&nbsp;</div>
+    </div>
+
+    <section class="panels">
+      <a class="panel tablet" href="./map.html">
+        <div class="numeral-tag">I</div>
+        <h2>The Map</h2>
+        <p>Every statue and monument, pinned across the city.</p>
+      </a>
+      <a class="panel tablet" href="./map.html#searchInput">
+        <div class="numeral-tag">II</div>
+        <h2>The Catalog</h2>
+        <p>Search by name, artist, material, or neighborhood.</p>
+      </a>
+      <a class="panel tablet" href="./instagram.html">
+        <div class="numeral-tag">III</div>
+        <h2>The Journal</h2>
+        <p>Photos and field notes from the streets of DC.</p>
+      </a>
+    </section>
+
+    <div class="motto">
+      <div class="divider" aria-hidden="true">✦</div>
+      <div class="latin">Saxa Loquuntur</div>
+      <div class="translation">“The stones speak.”</div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="meander" aria-hidden="true"></div>
+    <div class="footer-text">Romancing the Stone · Washington DC · <a href="https://www.instagram.com/romancingthestonedc/" target="_blank" rel="noopener noreferrer">@romancingthestonedc</a></div>
+  </footer>
 
   <script>
-    let allArtworks = [];
-
-    const searchInput = document.getElementById("searchInput");
-    const neighborhoodFilter = document.getElementById("neighborhoodFilter");
-    const resultCount = document.getElementById("resultCount");
-    const artList = document.getElementById("artList");
-
-    async function loadDatabase() {
-      try {
-        const response = await fetch("./artworks.json");
-        if (!response.ok) throw new Error("Failed to load artworks.json");
-        allArtworks = await response.json();
-        populateNeighborhoods(allArtworks);
-        renderArtworks();
-      } catch (err) {
-        resultCount.textContent = "Error loading database. Check that artworks.json is valid JSON.";
-        console.error(err);
+    // Turns a number like 42 into Roman numerals like XLII
+    function toRoman(n) {
+      const map = [[1000,"M"],[900,"CM"],[500,"D"],[400,"CD"],[100,"C"],[90,"XC"],
+                   [50,"L"],[40,"XL"],[10,"X"],[9,"IX"],[5,"V"],[4,"IV"],[1,"I"]];
+      let out = "";
+      for (const [value, letters] of map) {
+        while (n >= value) { out += letters; n -= value; }
       }
+      return out;
     }
 
-    function populateNeighborhoods(items) {
-      const areas = [...new Set(items.map(item => item.neighborhood))].sort();
-      areas.forEach(area => {
-        const option = document.createElement("option");
-        option.value = area;
-        option.textContent = area;
-        neighborhoodFilter.appendChild(option);
+    // Count the entries in artworks.json and show the total in Roman numerals
+    fetch("./artworks.json")
+      .then(r => r.json())
+      .then(items => {
+        document.getElementById("romanCount").textContent = toRoman(items.length);
+        document.getElementById("countNote").textContent = `(${items.length} works, and counting)`;
+      })
+      .catch(() => {
+        document.getElementById("romanCount").textContent = "✦";
       });
-    }
-
-    function renderArtworks() {
-      const query = searchInput.value.trim().toLowerCase();
-      const selectedArea = neighborhoodFilter.value;
-
-      const filtered = allArtworks.filter(item => {
-        const matchesArea = !selectedArea || item.neighborhood === selectedArea;
-        const searchableText = [
-          item.title,
-          item.artist,
-          item.material,
-          item.neighborhood,
-          item.location,
-          item.description,
-          String(item.year)
-        ].join(" ").toLowerCase();
-
-        return matchesArea && searchableText.includes(query);
-      });
-
-      resultCount.textContent = `Showing ${filtered.length} of ${allArtworks.length} entries`;
-      artList.innerHTML = "";
-
-      filtered.forEach(item => {
-        const card = document.createElement("article");
-        card.className = item.image ? "card" : "card no-image";
-
-        if (item.image) {
-          const media = document.createElement("div");
-          media.className = "card-media";
-
-          const img = document.createElement("img");
-          img.src = item.image;
-          img.alt = `${item.title} in Washington, D.C.`;
-          img.loading = "lazy";
-          img.onerror = () => {
-            media.remove();
-            card.classList.add("no-image");
-          };
-          media.appendChild(img);
-
-          if (item.image_credit) {
-            const credit = document.createElement("div");
-            credit.className = "photo-credit";
-            credit.textContent = `Photo: ${item.image_credit}`;
-            media.appendChild(credit);
-          }
-
-          card.appendChild(media);
-        }
-
-        const body = document.createElement("div");
-        body.className = "card-body";
-
-        const header = document.createElement("div");
-        header.className = "card-header";
-
-        const title = document.createElement("h2");
-        title.textContent = `${item.title} (${item.year})`;
-
-        const badge = document.createElement("span");
-        badge.className = "badge";
-        badge.textContent = item.neighborhood;
-
-        header.append(title, badge);
-
-        const meta = document.createElement("div");
-        meta.className = "meta";
-        meta.textContent = `Artist: ${item.artist} • Material: ${item.material} • Height: ${item.height_ft} ft`;
-
-        const desc = document.createElement("p");
-        desc.textContent = item.description;
-
-        const mapLink = document.createElement("a");
-        mapLink.className = "map-link";
-        mapLink.href = `https://www.google.com/maps/search/?api=1&query=${item.lat},${item.lng}`;
-        mapLink.target = "_blank";
-        mapLink.rel = "noopener noreferrer";
-        mapLink.textContent = `📍 Open in Google Maps (${item.location}) ↗`;
-
-        body.append(header, meta, desc, mapLink);
-        card.appendChild(body);
-        artList.appendChild(card);
-      });
-    }
-
-    searchInput.addEventListener("input", renderArtworks);
-    neighborhoodFilter.addEventListener("change", renderArtworks);
-
-    loadDatabase();
   </script>
 </body>
 </html>

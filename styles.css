@@ -1,0 +1,207 @@
+/* ==========================================================
+   Romancing the Stone — Washington, DC
+   Shared "Ancient Rome" theme used by every page.
+   Change a color here and it changes everywhere.
+   ========================================================== */
+
+:root {
+  /* Stone & paper */
+  --marble: #f5f0e6;        /* page background (travertine) */
+  --marble-vein: #e6dccb;   /* faint veining */
+  --tablet: #fbf8f2;        /* cards / panels */
+  --line: #d8cbb4;          /* borders */
+
+  /* Ink */
+  --ink: #2b2118;           /* main text */
+  --ink-soft: #6b5a48;      /* secondary text */
+
+  /* Roman accents */
+  --pompeii: #9b2d20;       /* Pompeian red */
+  --pompeii-dark: #7a2016;
+  --gold: #b08a3e;          /* gilt */
+  --gold-soft: #e9dcbc;
+  --laurel: #5d6b3b;        /* laurel green */
+
+  --heading-font: "Cinzel", "Trajan Pro", Georgia, serif;
+  --body-font: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+}
+
+* { box-sizing: border-box; }
+
+html { background: var(--marble); }
+
+body {
+  margin: 0;
+  font-family: var(--body-font);
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--ink);
+  /* soft marble veining */
+  background:
+    radial-gradient(ellipse at 15% 10%, rgba(255,255,255,.7), transparent 45%),
+    radial-gradient(ellipse at 85% 30%, var(--marble-vein), transparent 40%),
+    radial-gradient(ellipse at 40% 90%, var(--marble-vein), transparent 45%),
+    linear-gradient(115deg, transparent 48%, rgba(176,138,62,.06) 50%, transparent 52%),
+    var(--marble);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+a { color: var(--pompeii); }
+a:hover { color: var(--pompeii-dark); }
+
+.wrap {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* ---------- Greek-key (meander) band ---------- */
+.meander {
+  height: 14px;
+  background-color: var(--pompeii);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14' viewBox='0 0 28 14'%3E%3Cpath d='M0 12.5H11V1.5H3V9.5H8V5' fill='none' stroke='%23e9dcbc' stroke-width='1.6'/%3E%3Cpath d='M14 12.5H25V1.5H17V9.5H22V5' fill='none' stroke='%23e9dcbc' stroke-width='1.6'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 28px 14px;
+  border-top: 2px solid var(--gold);
+  border-bottom: 2px solid var(--gold);
+}
+
+/* ---------- Site header & navigation ---------- */
+.site-header {
+  text-align: center;
+  padding: 26px 16px 14px;
+}
+.brand {
+  display: inline-block;
+  text-decoration: none;
+  color: var(--ink);
+}
+.brand-name {
+  display: block;
+  font-family: var(--heading-font);
+  font-weight: 700;
+  font-size: clamp(1.6rem, 5vw, 2.6rem);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+.brand-place {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--heading-font);
+  font-size: .95rem;
+  letter-spacing: .35em;
+  color: var(--pompeii);
+  text-transform: uppercase;
+}
+.site-nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px 22px;
+  margin-top: 16px;
+}
+.site-nav a {
+  font-family: var(--heading-font);
+  font-size: .85rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ink);
+  padding: 4px 2px;
+  border-bottom: 2px solid transparent;
+}
+.site-nav a:hover { color: var(--pompeii); }
+.site-nav a.active {
+  color: var(--pompeii);
+  border-bottom-color: var(--gold);
+}
+
+/* ---------- Headings ---------- */
+h1, h2, h3 {
+  font-family: var(--heading-font);
+  font-weight: 600;
+  letter-spacing: .06em;
+  line-height: 1.25;
+}
+.page-title {
+  text-align: center;
+  margin: 34px 0 6px;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  text-transform: uppercase;
+}
+.page-intro {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 26px;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--gold);
+  margin: 10px 0 24px;
+}
+.divider::before,
+.divider::after {
+  content: "";
+  width: 80px;
+  height: 1px;
+  background: var(--gold);
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-block;
+  font-family: var(--heading-font);
+  font-size: .85rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 12px 22px;
+  border: 2px solid var(--pompeii);
+  background: var(--pompeii);
+  color: var(--gold-soft);
+  transition: background .2s, color .2s;
+}
+.btn:hover { background: var(--pompeii-dark); color: #fff; }
+.btn.ghost {
+  background: transparent;
+  color: var(--pompeii);
+}
+.btn.ghost:hover { background: var(--pompeii); color: var(--gold-soft); }
+
+/* ---------- Stone tablet panel ---------- */
+.tablet {
+  background: var(--tablet);
+  border: 1px solid var(--line);
+  box-shadow: 0 1px 0 #fff inset, 0 6px 18px rgba(60, 40, 20, .08);
+  position: relative;
+}
+.tablet::before {
+  /* thin gilt inner frame */
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid var(--gold-soft);
+  pointer-events: none;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  margin-top: 56px;
+}
+.site-footer .footer-text {
+  text-align: center;
+  padding: 18px 16px 30px;
+  font-family: var(--heading-font);
+  font-size: .8rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.site-footer a { text-decoration: none; }
