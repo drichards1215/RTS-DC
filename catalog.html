@@ -278,6 +278,14 @@
         mapLink.textContent = `📍 ${item.location || "Open in Google Maps"} ↗`;
         if (item.lat && item.lng) links.push(mapLink);
 
+        if (item.page) {
+          const story = document.createElement("a");
+          story.className = "map-link";
+          story.href = `./${item.page}`;
+          story.textContent = "★ Full story & badge →";
+          links.unshift(story);
+        }
+
         if (item.source_url) {
           const src = document.createElement("a");
           src.className = "map-link";

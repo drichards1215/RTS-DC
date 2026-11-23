@@ -1816,18 +1816,19 @@
   },
   {
     "title": "Theodore Roosevelt",
-    "artist": "",
-    "year": "",
+    "artist": "Paul Manship",
+    "year": 1967,
     "type": "Statue",
-    "material": "",
-    "height_ft": "",
+    "material": "Bronze",
+    "height_ft": 17,
     "neighborhood": "Theodore Roosevelt Island",
     "location": "Theodore Roosevelt Island",
     "lat": 38.8965,
     "lng": -77.0645,
-    "description": "Statue of Theodore Roosevelt, located at Theodore Roosevelt Island.",
-    "source_url": "https://en.wikipedia.org/wiki/Theodore_Roosevelt",
-    "pin_accuracy": "approximate"
+    "description": "Bronze statue of the 26th president, arm raised mid-speech, at the heart of a wooded island memorial in the Potomac River.",
+    "source_url": "https://en.wikipedia.org/wiki/Theodore_Roosevelt_Island",
+    "pin_accuracy": "approximate",
+    "page": "statues/theodore-roosevelt.html"
   },
   {
     "title": "Thomas Hopkins Gallaudet",
