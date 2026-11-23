@@ -5,22 +5,23 @@
    ========================================================== */
 
 :root {
-  /* Stone & paper */
-  --marble: #f5f0e6;        /* page background (travertine) */
-  --marble-vein: #e6dccb;   /* faint veining */
-  --tablet: #fbf8f2;        /* cards / panels */
-  --line: #d8cbb4;          /* borders */
+  /* Marble */
+  --marble: #f3f3f1;        /* page background (white marble) */
+  --marble-vein: #e1e4e8;   /* faint grey veining */
+  --tablet: #fbfbfa;        /* cards / panels */
+  --line: #cfd4da;          /* borders */
 
-  /* Ink */
-  --ink: #2b2118;           /* main text */
-  --ink-soft: #6b5a48;      /* secondary text */
+  /* Navy (same as the favicon) */
+  --navy: #1e293b;
+  --ink: #1e293b;           /* main text */
+  --ink-soft: #4b5869;      /* secondary text */
 
   /* Roman accents */
   --pompeii: #9b2d20;       /* Pompeian red */
   --pompeii-dark: #7a2016;
-  --gold: #b08a3e;          /* gilt */
-  --gold-soft: #e9dcbc;
-  --laurel: #5d6b3b;        /* laurel green */
+  --silver: #8e98a4;        /* polished silver */
+  --silver-soft: #dfe3e8;   /* pale marble-silver */
+  --laurel: var(--navy);    /* small accent text (was green) */
 
   --heading-font: "Cinzel", "Trajan Pro", Georgia, serif;
   --body-font: "Cormorant Garamond", Georgia, "Times New Roman", serif;
@@ -41,7 +42,7 @@ body {
     radial-gradient(ellipse at 15% 10%, rgba(255,255,255,.7), transparent 45%),
     radial-gradient(ellipse at 85% 30%, var(--marble-vein), transparent 40%),
     radial-gradient(ellipse at 40% 90%, var(--marble-vein), transparent 45%),
-    linear-gradient(115deg, transparent 48%, rgba(176,138,62,.06) 50%, transparent 52%),
+    linear-gradient(115deg, transparent 48%, rgba(30,41,59,.04) 50%, transparent 52%),
     var(--marble);
   background-attachment: fixed;
   min-height: 100vh;
@@ -56,15 +57,22 @@ a:hover { color: var(--pompeii-dark); }
   padding: 0 16px;
 }
 
-/* ---------- Greek-key (meander) band ---------- */
+/* ---------- Fresco band (top & bottom of every page) ----------
+   Painted like a Pompeian wall border: navy edges, silver hairlines,
+   a red field with a running wave scroll and a row of silver beads. */
 .meander {
-  height: 14px;
+  height: 30px;
   background-color: var(--pompeii);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14' viewBox='0 0 28 14'%3E%3Cpath d='M0 12.5H11V1.5H3V9.5H8V5' fill='none' stroke='%23e9dcbc' stroke-width='1.6'/%3E%3Cpath d='M14 12.5H25V1.5H17V9.5H22V5' fill='none' stroke='%23e9dcbc' stroke-width='1.6'/%3E%3C/svg%3E");
-  background-repeat: repeat-x;
-  background-size: 28px 14px;
-  border-top: 2px solid var(--gold);
-  border-bottom: 2px solid var(--gold);
+  background-image:
+    /* running wave scroll */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='30' viewBox='0 0 36 30'%3E%3Cpath d='M0 20.5C9 20.5 13 19 15 14.5C17 10 22 9 24.5 11.5C27 14 25 17.5 22 16.5C20 15.8 20.5 13.2 22.5 13.5M15 14.5C17 19 25 20.5 36 20.5' fill='none' stroke='%23dfe3e8' stroke-width='1.6' stroke-linecap='round'/%3E%3Ccircle cx='6' cy='25' r='1' fill='%23dfe3e8'/%3E%3Ccircle cx='18' cy='25' r='1' fill='%23dfe3e8'/%3E%3Ccircle cx='30' cy='25' r='1' fill='%23dfe3e8'/%3E%3C/svg%3E"),
+    /* navy edges with silver hairlines */
+    linear-gradient(to bottom,
+      var(--navy) 0 4px, var(--silver-soft) 4px 5px, transparent 5px calc(100% - 5px),
+      var(--silver-soft) calc(100% - 5px) calc(100% - 4px), var(--navy) calc(100% - 4px));
+  background-repeat: repeat-x, no-repeat;
+  background-size: 36px 30px, 100% 100%;
+  box-shadow: 0 1px 3px rgba(30, 41, 59, .25);
 }
 
 /* ---------- Site header & navigation ---------- */
@@ -115,7 +123,7 @@ a:hover { color: var(--pompeii-dark); }
 .site-nav a:hover { color: var(--pompeii); }
 .site-nav a.active {
   color: var(--pompeii);
-  border-bottom-color: var(--gold);
+  border-bottom-color: var(--silver);
 }
 
 /* ---------- Headings ---------- */
@@ -143,7 +151,7 @@ h1, h2, h3 {
   align-items: center;
   justify-content: center;
   gap: 12px;
-  color: var(--gold);
+  color: var(--silver);
   margin: 10px 0 24px;
 }
 .divider::before,
@@ -151,7 +159,7 @@ h1, h2, h3 {
   content: "";
   width: 80px;
   height: 1px;
-  background: var(--gold);
+  background: var(--silver);
 }
 
 /* ---------- Buttons ---------- */
@@ -165,7 +173,7 @@ h1, h2, h3 {
   padding: 12px 22px;
   border: 2px solid var(--pompeii);
   background: var(--pompeii);
-  color: var(--gold-soft);
+  color: var(--silver-soft);
   transition: background .2s, color .2s;
 }
 .btn:hover { background: var(--pompeii-dark); color: #fff; }
@@ -173,13 +181,13 @@ h1, h2, h3 {
   background: transparent;
   color: var(--pompeii);
 }
-.btn.ghost:hover { background: var(--pompeii); color: var(--gold-soft); }
+.btn.ghost:hover { background: var(--pompeii); color: var(--silver-soft); }
 
 /* ---------- Stone tablet panel ---------- */
 .tablet {
   background: var(--tablet);
   border: 1px solid var(--line);
-  box-shadow: 0 1px 0 #fff inset, 0 6px 18px rgba(60, 40, 20, .08);
+  box-shadow: 0 1px 0 #fff inset, 0 6px 18px rgba(30, 41, 59, .08);
   position: relative;
 }
 .tablet::before {
@@ -187,7 +195,7 @@ h1, h2, h3 {
   content: "";
   position: absolute;
   inset: 6px;
-  border: 1px solid var(--gold-soft);
+  border: 1px solid var(--silver-soft);
   pointer-events: none;
 }
 
