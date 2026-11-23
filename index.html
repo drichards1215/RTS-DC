@@ -86,15 +86,17 @@
       font-size: 1rem;
     }
 
-    /* Three fresco panels */
+    /* Four fresco panels: 4 across on wide screens, 2x2 on tablets, stacked on phones */
     .panels {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap: 20px;
       margin-top: 44px;
     }
+    @media (max-width: 900px) { .panels { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 520px) { .panels { grid-template-columns: 1fr; } }
     .panel {
-      padding: 28px 24px 26px;
+      padding: 28px 20px 26px;
       text-align: center;
       text-decoration: none;
       color: var(--ink);
@@ -146,7 +148,7 @@
       <a href="./index.html" class="active">Home</a>
       <a href="./map.html">Map</a>
       <a href="./catalog.html">Catalog</a>
-      <a href="./instagram.html">Instagram</a>
+      <a href="./journal.html">Journal</a>
     </nav>
   </header>
   <div class="meander" aria-hidden="true"></div>
@@ -176,7 +178,7 @@
       <div class="hero-actions">
         <a class="btn" href="./map.html">Explore the Map</a>
         <a class="btn" href="./catalog.html">Search the Catalog</a>
-        <a class="btn ghost" href="./instagram.html">Follow on Instagram</a>
+        <a class="btn ghost" href="https://www.instagram.com/romancingthestonedc/" target="_blank" rel="noopener noreferrer">Follow on Instagram</a>
       </div>
     </section>
 
@@ -197,10 +199,15 @@
         <h2>The Catalog</h2>
         <p>Search by name, artist, material, or neighborhood.</p>
       </a>
-      <a class="panel tablet" href="./instagram.html">
+      <a class="panel tablet" href="./journal.html">
         <div class="numeral-tag">III</div>
         <h2>The Journal</h2>
         <p>Photos and field notes from the streets of DC.</p>
+      </a>
+      <a class="panel tablet" href="./quest.html">
+        <div class="numeral-tag">IV</div>
+        <h2>The Quest</h2>
+        <p>Visit every statue, collect every stamp.</p>
       </a>
     </section>
 

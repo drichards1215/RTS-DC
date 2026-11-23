@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=2" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png?v=2" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Quest | Romancing the Stone DC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <style>
+    /* ----- Styles used only on the Quest page ----- */
+    .quest-board { padding: 28px 24px; }
+    .quest-bar { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: 4px 14px; margin-bottom: 12px; }
+    .quest-count { font-family: var(--heading-font); font-size: clamp(1.6rem, 5vw, 2.2rem); color: var(--pompeii); letter-spacing: .08em; }
+    .quest-label { color: var(--ink-soft); font-style: italic; }
+    .meter { height: 10px; background: var(--silver-soft); border: 1px solid var(--line); margin: 0 0 8px; }
+    .meter span { display: block; height: 100%; width: 0; background: var(--pompeii); transition: width .6s; }
+    .legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 18px; font-size: .95rem; color: var(--ink-soft); margin: 0 0 26px; }
+    .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
+    .legend .l-none { border: 1.5px dashed var(--silver); }
+    .legend .l-visit { border: 2px solid var(--pompeii); }
+    .legend .l-badge { background: var(--pompeii); }
+
+    .stamps { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 22px 14px; }
+    .stamp-cell { text-align: center; text-decoration: none; color: var(--ink); display: block; }
+    a.stamp-cell:hover .stamp { box-shadow: 0 4px 12px rgba(30,41,59,.15); }
+    .stamp {
+      width: 78px; height: 78px; margin: 0 auto 8px;
+      border: 2px dashed var(--line);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--heading-font);
+      font-size: .9rem;
+      color: var(--silver);
+      transition: box-shadow .2s;
+    }
+    .stamp-cell.visited .stamp { border: 2.5px solid var(--pompeii); color: var(--pompeii); background: rgba(155,45,32,.06); transform: rotate(-8deg); }
+    .stamp-cell.badge .stamp { border: 2.5px solid var(--pompeii-dark); color: var(--silver-soft); background: var(--pompeii); transform: rotate(-8deg); }
+    .stamp-name { font-size: .95rem; line-height: 1.25; }
+    .stamp-cell .more { display: block; font-size: .8rem; color: var(--pompeii); margin-top: 2px; }
+
+    .how { max-width: 720px; margin: 40px auto 0; padding: 24px 24px; }
+    .how h2 { margin: 0 0 8px; font-size: 1.1rem; text-transform: uppercase; text-align: center; }
+    .how ol { margin: 0; padding-left: 1.3em; }
+    .how .note { font-size: .95rem; color: var(--ink-soft); font-style: italic; margin: 12px 0 0; }
+    .status { text-align: center; color: var(--ink-soft); font-style: italic; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="./index.html">
+      <span class="brand-name">Romancing the Stone</span>
+      <span class="brand-place">Washington · DC</span>
+    </a>
+    <nav class="site-nav" aria-label="Site navigation">
+      <a href="./index.html">Home</a>
+      <a href="./map.html">Map</a>
+      <a href="./catalog.html">Catalog</a>
+      <a href="./journal.html">Journal</a>
+    </nav>
+  </header>
+  <div class="meander" aria-hidden="true"></div>
+
+  <main class="wrap">
+    <h1 class="page-title">The Quest</h1>
+    <div class="divider" aria-hidden="true">✦</div>
+    <p class="page-intro">Every statue in the collection, waiting for your stamp. Visit them in person and fill the board.</p>
+
+    <section class="quest-board tablet">
+      <div class="quest-bar">
+        <span class="quest-count" id="count">…</span>
+        <span class="quest-label" id="countLabel">statues visited</span>
+      </div>
+      <div class="meter" aria-hidden="true"><span id="meter"></span></div>
+      <div class="legend">
+        <span><i class="l-none"></i>Not yet visited</span>
+        <span><i class="l-visit"></i>Visited</span>
+        <span><i class="l-badge"></i>Badge earned</span>
+      </div>
+      <div class="stamps" id="stamps"><p class="status">Loading the statues…</p></div>
+    </section>
+
+    <section class="how tablet">
+      <h2>How It Works</h2>
+      <ol>
+        <li>Pick a statue and go see it in person.</li>
+        <li>Open its page here and log your visit. Statues marked “Badge” have a page today; more are coming.</li>
+        <li>Pass the short quiz to earn its badge and fill in the stamp.</li>
+      </ol>
+      <p class="note">Your progress is saved only in this browser on this device. Nothing is sent anywhere.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="meander" aria-hidden="true"></div>
+    <div class="footer-text">Romancing the Stone · Washington DC · <a href="https://www.instagram.com/romancingthestonedc/" target="_blank" rel="noopener noreferrer">@romancingthestonedc</a></div>
+  </footer>
+
+  <script>
+    // Progress is written by each statue page under this key (same as statues/*.html).
+    const STORE_KEY = "rts-badges";
+    function loadProgress() {
+      try { return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; } catch { return {}; }
+    }
+    function roman(n) {
+      if (!n) return "None";
+      const map = [[1000,"M"],[900,"CM"],[500,"D"],[400,"CD"],[100,"C"],[90,"XC"],[50,"L"],[40,"XL"],[10,"X"],[9,"IX"],[5,"V"],[4,"IV"],[1,"I"]];
+      let out = "";
+      for (const [v, s] of map) while (n >= v) { out += s; n -= v; }
+      return out;
+    }
+    // Same id the statue pages use, e.g. "Theodore Roosevelt" -> "theodore-roosevelt"
+    function slug(item) {
+      if (item.page) return item.page.split("/").pop().replace(/\.html$/, "");
+      return item.title.normalize("NFD").replace(/[̀-ͯ]/g, "")
+        .toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    }
+
+    (async function () {
+      const box = document.getElementById("stamps");
+      let items;
+      try {
+        const res = await fetch("./artworks.json");
+        if (!res.ok) throw new Error();
+        items = await res.json();
+      } catch {
+        box.innerHTML = '<p class="status">Couldn’t load the statue list. Please refresh the page.</p>';
+        return;
+      }
+      const progress = loadProgress();
+      let visited = 0;
+      box.innerHTML = "";
+      items.forEach((item, i) => {
+        const p = progress[slug(item)] || {};
+        const earned = p.visited && p.quizPassed;
+        if (p.visited) visited++;
+        const cell = document.createElement(item.page ? "a" : "div");
+        cell.className = "stamp-cell" + (earned ? " badge" : p.visited ? " visited" : "");
+        if (item.page) cell.href = "./" + item.page;
+        const stamp = document.createElement("div");
+        stamp.className = "stamp";
+        stamp.textContent = roman(i + 1);
+        const name = document.createElement("div");
+        name.className = "stamp-name";
+        name.textContent = item.title;
+        cell.append(stamp, name);
+        if (item.page) {
+          const more = document.createElement("span");
+          more.className = "more";
+          more.textContent = "★ Badge";
+          cell.append(more);
+        }
+        box.append(cell);
+      });
+      document.getElementById("count").textContent = `${roman(visited)} of ${roman(items.length)}`;
+      document.getElementById("meter").style.width = (visited / items.length * 100) + "%";
+    })();
+  </script>
+</body>
+</html>

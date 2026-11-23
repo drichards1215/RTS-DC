@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=2" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png?v=2" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Journal | Romancing the Stone DC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <style>
+    /* ----- Styles used only on the Journal page ----- */
+    html { scroll-behavior: smooth; }
+
+    /* Section menu (jump links to each part of the page) */
+    .journal-nav {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px 8px;
+      padding: 10px 8px;
+      margin: 0 0 34px;
+      background: rgba(243, 243, 241, .94);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(4px);
+    }
+    .journal-nav a {
+      font-family: var(--heading-font);
+      font-size: .7rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--ink);
+      padding: 6px 7px;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+    .journal-nav a:hover { color: var(--pompeii); border-color: var(--silver-soft); }
+    .journal-nav .num { color: var(--pompeii); margin-right: 4px; }
+    /* Each idea gets its own section */
+    .j-section { margin: 0 0 54px; scroll-margin-top: 110px; }
+    .j-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 4px; }
+    .j-head .numeral {
+      font-family: var(--heading-font);
+      color: var(--pompeii);
+      font-size: 1rem;
+      letter-spacing: .1em;
+      min-width: 2.2em;
+    }
+    .j-head h2 { margin: 0; font-size: clamp(1.2rem, 3.4vw, 1.55rem); text-transform: uppercase; }
+    .j-lede { margin: 0 0 16px; color: var(--ink-soft); font-style: italic; }
+
+    .soon {
+      display: inline-block;
+      margin-left: auto;
+      font-family: var(--heading-font);
+      font-size: .62rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      border: 1px solid var(--line);
+      padding: 2px 8px;
+      white-space: nowrap;
+    }
+
+    /* Placeholder boxes */
+    .ph { padding: 22px 22px; }
+    .ph-img {
+      background:
+        repeating-linear-gradient(135deg, transparent 0 10px, rgba(142,152,164,.12) 10px 11px),
+        var(--silver-soft);
+      color: var(--ink-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--heading-font);
+      font-size: .7rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 8px;
+    }
+    .ph-line { height: 10px; background: var(--silver-soft); margin: 8px 0; border-radius: 2px; }
+    .ph-line.short { width: 55%; }
+    .ph-line.mid { width: 80%; }
+    .ph h3 { margin: 0 0 4px; font-size: 1.05rem; }
+    .ph .meta { font-size: .95rem; color: var(--ink-soft); }
+    .ph .link-out { font-size: .95rem; display: inline-block; margin-top: 10px; }
+
+    .grid { display: grid; gap: 16px; }
+    .grid.two { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+
+    /* I. Field Notes entries */
+    .entry { display: grid; grid-template-columns: 180px 1fr; gap: 20px; align-items: start; }
+    .entry .ph-img { aspect-ratio: 4 / 5; }
+    @media (max-width: 560px) {
+      .entry { grid-template-columns: 1fr; }
+      .entry .ph-img { aspect-ratio: 16 / 9; }
+    }
+    .entries { display: grid; gap: 18px; }
+
+    /* II. Stories */
+    .story .kicker { font-family: var(--heading-font); font-size: .65rem; letter-spacing: .18em; text-transform: uppercase; color: var(--pompeii); }
+
+    /* III. Then & Now */
+    .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+    .pair .ph-img { aspect-ratio: 1; }
+
+    /* Instagram call-out at the bottom */
+    .ig-cta { text-align: center; padding: 30px 22px; }
+    .ig-cta h2 { margin: 0 0 6px; font-size: 1.2rem; text-transform: uppercase; }
+    .ig-cta p { margin: 0 0 18px; color: var(--ink-soft); font-style: italic; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="./index.html">
+      <span class="brand-name">Romancing the Stone</span>
+      <span class="brand-place">Washington · DC</span>
+    </a>
+    <nav class="site-nav" aria-label="Site navigation">
+      <a href="./index.html">Home</a>
+      <a href="./map.html">Map</a>
+      <a href="./catalog.html">Catalog</a>
+      <a href="./journal.html" class="active">Journal</a>
+    </nav>
+  </header>
+  <div class="meander" aria-hidden="true"></div>
+
+  <main class="wrap">
+    <h1 class="page-title">The Journal</h1>
+    <div class="divider" aria-hidden="true">✦</div>
+    <p class="page-intro">Notes, stories, and wanderings from the streets of Washington, one statue at a time.</p>
+
+    <nav class="journal-nav" aria-label="Journal sections">
+      <a href="#field-notes"><span class="num">I</span>Field Notes</a>
+      <a href="#stories"><span class="num">II</span>Stories Behind the Stone</a>
+      <a href="#then-and-now"><span class="num">III</span>Then &amp; Now</a>
+    </nav>
+
+    <!-- ===== I. FIELD NOTES ===== -->
+    <section class="j-section" id="field-notes">
+      <div class="j-head"><span class="numeral">I.</span><h2>Field Notes</h2><span class="soon">Placeholder</span></div>
+      <p class="j-lede">A dated diary of each visit: what it was like to stand there in person.</p>
+      <div class="entries">
+        <article class="ph tablet entry">
+          <div class="ph-img">Photo</div>
+          <div>
+            <div class="meta">Date · Neighborhood</div>
+            <h3>Statue name</h3>
+            <div class="ph-line"></div><div class="ph-line mid"></div><div class="ph-line short"></div>
+            <a class="link-out" href="#">See this on Instagram →</a>
+          </div>
+        </article>
+        <article class="ph tablet entry">
+          <div class="ph-img">Photo</div>
+          <div>
+            <div class="meta">Date · Neighborhood</div>
+            <h3>Statue name</h3>
+            <div class="ph-line"></div><div class="ph-line mid"></div><div class="ph-line short"></div>
+            <a class="link-out" href="#">See this on Instagram →</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== II. STORIES BEHIND THE STONE ===== -->
+    <section class="j-section" id="stories">
+      <div class="j-head"><span class="numeral">II.</span><h2>Stories Behind the Stone</h2><span class="soon">Placeholder</span></div>
+      <p class="j-lede">Legends, controversies, and how these statues came to be.</p>
+      <div class="grid two">
+        <article class="ph tablet story">
+          <div class="kicker">Story</div>
+          <h3>Story title</h3>
+          <div class="ph-line"></div><div class="ph-line mid"></div><div class="ph-line short"></div>
+          <a class="link-out" href="#">Read the story →</a>
+        </article>
+        <article class="ph tablet story">
+          <div class="kicker">Story</div>
+          <h3>Story title</h3>
+          <div class="ph-line"></div><div class="ph-line mid"></div><div class="ph-line short"></div>
+          <a class="link-out" href="#">Read the story →</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== III. THEN & NOW ===== -->
+    <section class="j-section" id="then-and-now">
+      <div class="j-head"><span class="numeral">III.</span><h2>Then &amp; Now</h2><span class="soon">Placeholder</span></div>
+      <p class="j-lede">Historic photographs set beside the same view today.</p>
+      <div class="grid two">
+        <div class="ph tablet">
+          <div class="pair"><div class="ph-img">Then</div><div class="ph-img">Now</div></div>
+          <h3>Statue name</h3>
+          <div class="meta">Year · Today</div>
+        </div>
+        <div class="ph tablet">
+          <div class="pair"><div class="ph-img">Then</div><div class="ph-img">Now</div></div>
+          <h3>Statue name</h3>
+          <div class="meta">Year · Today</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== INSTAGRAM ===== -->
+    <section class="ig-cta tablet">
+      <h2>Follow Along</h2>
+      <p>New visits are posted to Instagram first.</p>
+      <a class="btn" href="https://www.instagram.com/romancingthestonedc/" target="_blank" rel="noopener noreferrer">@romancingthestonedc on Instagram ↗</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="meander" aria-hidden="true"></div>
+    <div class="footer-text">Romancing the Stone · Washington DC · <a href="https://www.instagram.com/romancingthestonedc/" target="_blank" rel="noopener noreferrer">@romancingthestonedc</a></div>
+  </footer>
+</body>
+</html>
