@@ -113,6 +113,14 @@
       text-decoration: none;
     }
     .map-link:hover { text-decoration: underline; }
+    .link-row { display: flex; flex-wrap: wrap; gap: 4px 20px; }
+    .credit {
+      text-align: center;
+      font-size: .95rem;
+      font-style: italic;
+      color: var(--ink-soft);
+      margin-top: 28px;
+    }
   </style>
 </head>
 <body>
@@ -144,6 +152,7 @@
 
     <div id="resultCount" class="count">Loading database...</div>
     <div id="artList" class="grid"></div>
+    <p class="credit">Catalog descriptions adapted from <a href="https://en.wikipedia.org/wiki/Outdoor_sculpture_in_Washington,_D.C." target="_blank" rel="noopener noreferrer">Wikipedia</a> (CC BY-SA 4.0) and Wikidata.</p>
   </main>
 
   <footer class="site-footer">
@@ -239,7 +248,7 @@
         header.className = "card-header";
 
         const title = document.createElement("h2");
-        title.textContent = `${item.title} (${item.year})`;
+        title.textContent = item.year ? `${item.title} (${item.year})` : item.title;
 
         const badge = document.createElement("span");
         badge.className = "badge";
@@ -249,19 +258,41 @@
 
         const meta = document.createElement("div");
         meta.className = "meta";
-        meta.textContent = `Artist: ${item.artist} • Material: ${item.material} • Height: ${item.height_ft} ft`;
+        meta.textContent = [
+          item.type,
+          item.artist && `Artist: ${item.artist}`,
+          item.material && `Material: ${item.material}`,
+          item.height_ft && `Height: ${item.height_ft} ft`
+        ].filter(Boolean).join(" • ");
 
         const desc = document.createElement("p");
         desc.textContent = item.description;
+
+        const links = [];
 
         const mapLink = document.createElement("a");
         mapLink.className = "map-link";
         mapLink.href = `https://www.google.com/maps/search/?api=1&query=${item.lat},${item.lng}`;
         mapLink.target = "_blank";
         mapLink.rel = "noopener noreferrer";
-        mapLink.textContent = `📍 Open in Google Maps (${item.location}) ↗`;
+        mapLink.textContent = `📍 ${item.location || "Open in Google Maps"} ↗`;
+        if (item.lat && item.lng) links.push(mapLink);
 
-        body.append(header, meta, desc, mapLink);
+        if (item.source_url) {
+          const src = document.createElement("a");
+          src.className = "map-link";
+          src.href = item.source_url;
+          src.target = "_blank";
+          src.rel = "noopener noreferrer";
+          src.textContent = "Read more on Wikipedia ↗";
+          links.push(src);
+        }
+
+        const linkRow = document.createElement("div");
+        linkRow.className = "link-row";
+        linkRow.append(...links);
+
+        body.append(header, meta, desc, linkRow);
         card.appendChild(body);
         artList.appendChild(card);
       });
