@@ -121,6 +121,11 @@ a:hover { color: var(--pompeii-dark); }
   border-bottom: 2px solid transparent;
 }
 .site-nav a:hover { color: var(--pompeii); }
+/* Phones: tighter spacing so all menu items fit on one line */
+@media (max-width: 480px) {
+  .site-nav { gap: 6px 12px; }
+  .site-nav a { font-size: .78rem; letter-spacing: .1em; }
+}
 .site-nav a.active {
   color: var(--pompeii);
   border-bottom-color: var(--silver);
