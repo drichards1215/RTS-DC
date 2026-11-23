@@ -12,7 +12,8 @@
     "lng": -77.0501,
     "description": "Monumental seated figure of the 16th president, carved by the Piccirilli Brothers from 28 blocks of marble, gazing east toward the Reflecting Pool and Washington Monument.",
     "source_url": "https://en.wikipedia.org/wiki/Statue_of_Abraham_Lincoln_(Lincoln_Memorial)",
-    "pin_accuracy": "exact"
+    "pin_accuracy": "exact",
+    "page": "statues/abraham-lincoln.html"
   },
   {
     "title": "Thomas Jefferson",
@@ -27,7 +28,8 @@
     "lng": -77.0365,
     "description": "Standing bronze figure of the 3rd president inside the domed rotunda. A plaster version stood here at the 1943 dedication until wartime metal limits eased.",
     "source_url": "https://en.wikipedia.org/wiki/Jefferson_Memorial",
-    "pin_accuracy": "exact"
+    "pin_accuracy": "exact",
+    "page": "statues/thomas-jefferson.html"
   },
   {
     "title": "Martin Luther King Jr. (Stone of Hope)",
@@ -42,7 +44,8 @@
     "lng": -77.0442,
     "description": "Dr. King's likeness emerges from the 'Stone of Hope,' split from the 'Mountain of Despair,' a line drawn from his 'I Have a Dream' speech. The first National Mall memorial honoring an African American.",
     "source_url": "https://en.wikipedia.org/wiki/Martin_Luther_King_Jr._Memorial",
-    "pin_accuracy": "exact"
+    "pin_accuracy": "exact",
+    "page": "statues/martin-luther-king-jr.html"
   },
   {
     "title": "Franklin D. Roosevelt",
@@ -57,7 +60,8 @@
     "lng": -77.0444,
     "description": "Seated figure of the 32nd president in his cloak, with his Scottish terrier Fala at his side, in the four-room outdoor memorial tracing his four terms.",
     "source_url": "https://en.wikipedia.org/wiki/Franklin_Delano_Roosevelt_Memorial",
-    "pin_accuracy": "approximate"
+    "pin_accuracy": "approximate",
+    "page": "statues/franklin-d-roosevelt.html"
   },
   {
     "title": "Eleanor Roosevelt",
@@ -72,7 +76,8 @@
     "lng": -77.0444,
     "description": "Standing figure of Eleanor Roosevelt before the United Nations emblem, honoring her work as a delegate to the U.N. It is the only presidential memorial to depict a First Lady.",
     "source_url": "https://en.wikipedia.org/wiki/Franklin_Delano_Roosevelt_Memorial",
-    "pin_accuracy": "approximate"
+    "pin_accuracy": "approximate",
+    "page": "statues/eleanor-roosevelt.html"
   },
   {
     "title": "Theodore Roosevelt",
@@ -103,7 +108,8 @@
     "lng": -77.0503,
     "description": "Washington on horseback at the Battle of Princeton, set in one of the traffic circles from Pierre L'Enfant's original city plan, at the edge of George Washington University.",
     "source_url": "https://en.wikipedia.org/wiki/Equestrian_statue_of_George_Washington_(Washington_Circle)",
-    "pin_accuracy": "exact"
+    "pin_accuracy": "exact",
+    "page": "statues/george-washington.html"
   },
   {
     "title": "Ulysses S. Grant",
@@ -118,7 +124,8 @@
     "lng": -77.01291,
     "description": "One of the largest equestrian statues in the world: Grant sits calmly on his horse while bronze cavalry and artillery groups charge on either side. Shrady worked on it for some 20 years and died just before it was dedicated.",
     "source_url": "https://en.wikipedia.org/wiki/Ulysses_S._Grant_Memorial",
-    "pin_accuracy": "exact"
+    "pin_accuracy": "exact",
+    "page": "statues/ulysses-s-grant.html"
   },
   {
     "title": "Albert Einstein",
@@ -133,7 +140,8 @@
     "lng": -77.0483,
     "description": "Seated bronze of the physicist holding papers with three of his famous equations, his feet resting on a star map of the sky as it looked when the memorial was dedicated.",
     "source_url": "https://en.wikipedia.org/wiki/Albert_Einstein_Memorial",
-    "pin_accuracy": "exact"
+    "pin_accuracy": "exact",
+    "page": "statues/albert-einstein.html"
   },
   {
     "title": "Andrew Jackson",
@@ -148,7 +156,8 @@
     "lng": -77.03656,
     "description": "Jackson raises his hat while his horse rears on its hind legs. It was the first bronze statue cast in the United States and the first equestrian statue balanced on only two legs.",
     "source_url": "https://en.wikipedia.org/wiki/Equestrian_statue_of_Andrew_Jackson_(Washington,_D.C.)",
-    "pin_accuracy": "exact"
+    "pin_accuracy": "exact",
+    "page": "statues/andrew-jackson.html"
   },
   {
     "title": "Marquis de Lafayette",
@@ -163,7 +172,8 @@
     "lng": -77.0354,
     "description": "The young French general who fought beside Washington in the Revolution, shown appealing to the French National Assembly for support of the American cause. The square is named for him.",
     "source_url": "https://en.wikipedia.org/wiki/Lafayette_Square,_Washington,_D.C.",
-    "pin_accuracy": "approximate"
+    "pin_accuracy": "approximate",
+    "page": "statues/marquis-de-lafayette.html"
   },
   {
     "title": "Benjamin Franklin",
@@ -178,7 +188,8 @@
     "lng": -77.0277,
     "description": "Standing marble Franklin, a gift to the city from newspaper publisher Stilson Hutchins, in front of the building that served as the city's main post office (Franklin was the first Postmaster General).",
     "source_url": "https://en.wikipedia.org/wiki/Statue_of_Benjamin_Franklin_(Washington,_D.C.)",
-    "pin_accuracy": "approximate"
+    "pin_accuracy": "approximate",
+    "page": "statues/benjamin-franklin.html"
   },
   {
     "title": "Mary McLeod Bethune",
@@ -193,7 +204,8 @@
     "lng": -76.988,
     "description": "The educator and civil rights leader hands her 'legacy' to two children. The first statue on public land in D.C. honoring an African American and a woman.",
     "source_url": "https://en.wikipedia.org/wiki/Mary_McLeod_Bethune_Memorial",
-    "pin_accuracy": "approximate"
+    "pin_accuracy": "approximate",
+    "page": "statues/mary-mcleod-bethune.html"
   },
   {
     "title": "Emancipation Memorial (Lincoln & Archer Alexander)",
@@ -208,7 +220,8 @@
     "lng": -76.9905,
     "description": "Lincoln holds the Emancipation Proclamation over a kneeling freedman modeled on Archer Alexander. Paid for by donations from formerly enslaved people; Frederick Douglass spoke at the dedication. Long debated for its imagery.",
     "source_url": "https://en.wikipedia.org/wiki/Emancipation_Memorial",
-    "pin_accuracy": "approximate"
+    "pin_accuracy": "approximate",
+    "page": "statues/emancipation-memorial.html"
   },
   {
     "title": "Winston Churchill",
@@ -223,7 +236,8 @@
     "lng": -77.063,
     "description": "Churchill flashes his 'V for Victory' sign with one foot on embassy grounds and one on D.C. soil, a nod to his British father and American mother.",
     "source_url": "https://en.wikipedia.org/wiki/Statue_of_Winston_Churchill_(Washington,_D.C.)",
-    "pin_accuracy": "approximate"
+    "pin_accuracy": "approximate",
+    "page": "statues/winston-churchill.html"
   },
   {
     "title": "Mahatma Gandhi",
@@ -238,7 +252,8 @@
     "lng": -77.04697,
     "description": "Gandhi mid-stride, as on the 1930 Salt March. Dedicated in 2000 during a state visit by Indian Prime Minister Atal Bihari Vajpayee, with President Bill Clinton present.",
     "source_url": "https://en.wikipedia.org/wiki/Mahatma_Gandhi_Memorial_(Washington,_D.C.)",
-    "pin_accuracy": "exact"
+    "pin_accuracy": "exact",
+    "page": "statues/mahatma-gandhi.html"
   },
   {
     "title": "Nelson Mandela",
@@ -253,7 +268,8 @@
     "lng": -77.0612,
     "description": "Mandela with his right fist raised, the pose of his 1990 release from prison. Unveiled at the South African Embassy just months before his death.",
     "source_url": "https://en.wikipedia.org/wiki/Statue_of_Nelson_Mandela_(Washington,_D.C.)",
-    "pin_accuracy": "approximate"
+    "pin_accuracy": "approximate",
+    "page": "statues/nelson-mandela.html"
   },
   {
     "title": "Joan of Arc",
@@ -268,7 +284,8 @@
     "lng": -77.03572,
     "description": "A gift from the women of France to the women of America, cast from Dubois's statue at Reims Cathedral. D.C.'s only equestrian statue of a woman.",
     "source_url": "https://en.wikipedia.org/wiki/Equestrian_statue_of_Joan_of_Arc_(Washington,_D.C.)",
-    "pin_accuracy": "exact"
+    "pin_accuracy": "exact",
+    "page": "statues/joan-of-arc.html"
   },
   {
     "title": "John Paul Jones",
@@ -283,7 +300,8 @@
     "lng": -77.0395,
     "description": "Bronze of the Revolutionary War naval hero, known as the 'Father of the American Navy,' set against a marble pylon carved with a scene of him raising the flag.",
     "source_url": "https://en.wikipedia.org/wiki/John_Paul_Jones_Memorial",
-    "pin_accuracy": "exact"
+    "pin_accuracy": "exact",
+    "page": "statues/john-paul-jones.html"
   },
   {
     "title": "David G. Farragut",
@@ -298,7 +316,8 @@
     "lng": -77.03896,
     "description": "The Navy's first admiral, cast from the propeller of his flagship USS Hartford. Ream was the first woman to receive a federal commission for a statue.",
     "source_url": "https://en.wikipedia.org/wiki/Statue_of_David_Farragut_(Washington,_D.C.)",
-    "pin_accuracy": "exact"
+    "pin_accuracy": "exact",
+    "page": "statues/david-g-farragut.html"
   },
   {
     "title": "William Tecumseh Sherman",
@@ -313,7 +332,8 @@
     "lng": -77.0343,
     "description": "Sherman on horseback atop a tall pedestal ringed by soldiers and allegorical figures. Rohl-Smith died before finishing it; his widow oversaw its completion.",
     "source_url": "https://en.wikipedia.org/wiki/General_William_Tecumseh_Sherman_Monument",
-    "pin_accuracy": "exact"
+    "pin_accuracy": "exact",
+    "page": "statues/william-tecumseh-sherman.html"
   },
   {
     "title": "Philip Sheridan",
@@ -328,7 +348,8 @@
     "lng": -77.05067,
     "description": "Sheridan rallies his troops at the Battle of Cedar Creek. Sculpted by Borglum, later famous for Mount Rushmore.",
     "source_url": "https://en.wikipedia.org/wiki/Equestrian_statue_of_Philip_Sheridan_(Washington,_D.C.)",
-    "pin_accuracy": "exact"
+    "pin_accuracy": "exact",
+    "page": "statues/philip-sheridan.html"
   },
   {
     "title": "Winfield Scott",
@@ -343,7 +364,8 @@
     "lng": -77.03651,
     "description": "The long-serving general who led U.S. forces in the Mexican-American War, cast from cannons captured in that war.",
     "source_url": "https://en.wikipedia.org/wiki/Equestrian_statue_of_Winfield_Scott",
-    "pin_accuracy": "exact"
+    "pin_accuracy": "exact",
+    "page": "statues/winfield-scott.html"
   },
   {
     "title": "Simón Bolívar",
@@ -358,7 +380,8 @@
     "lng": -77.042,
     "description": "The South American liberator on horseback, a gift from Venezuela, near the Organization of American States. De Weldon also made the Marine Corps (Iwo Jima) War Memorial.",
     "source_url": "https://en.wikipedia.org/wiki/Equestrian_statue_of_Sim%C3%B3n_Bol%C3%ADvar_(Washington,_D.C.)",
-    "pin_accuracy": "exact"
+    "pin_accuracy": "exact",
+    "page": "statues/simon-bolivar.html"
   },
   {
     "title": "Christopher Columbus (Columbus Fountain)",
@@ -373,7 +396,8 @@
     "lng": -77.0066,
     "description": "Columbus stands at the prow of a ship above a fountain, flanked by figures of the Old and New Worlds, greeting travelers outside Union Station.",
     "source_url": "https://en.wikipedia.org/wiki/Columbus_Fountain",
-    "pin_accuracy": "exact"
+    "pin_accuracy": "exact",
+    "page": "statues/christopher-columbus.html"
   },
   {
     "title": "George Mason",
@@ -388,6 +412,7 @@
     "lng": -77.0392,
     "description": "Seated, relaxed Mason, author of the Virginia Declaration of Rights that inspired the Bill of Rights, in a garden near the Jefferson Memorial.",
     "source_url": "https://en.wikipedia.org/wiki/George_Mason_Memorial",
-    "pin_accuracy": "exact"
+    "pin_accuracy": "exact",
+    "page": "statues/george-mason.html"
   }
 ]

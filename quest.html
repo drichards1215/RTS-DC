@@ -68,7 +68,7 @@
   <main class="wrap">
     <h1 class="page-title">The Quest</h1>
     <div class="divider" aria-hidden="true">✦</div>
-    <p class="page-intro">Every statue in the collection, waiting for your stamp. Visit them in person and fill the board.</p>
+    <p class="page-intro">Every statue in the collection, waiting for your stamp. Tap any statue to read its story and earn its badge.</p>
 
     <section class="quest-board tablet">
       <div class="quest-bar">
@@ -88,7 +88,7 @@
       <h2>How It Works</h2>
       <ol>
         <li>Pick a statue and go see it in person.</li>
-        <li>Open its page here and log your visit. Statues marked “Badge” have a page today; more are coming.</li>
+        <li>Tap its stamp here to open its story, then log your visit.</li>
         <li>Pass the short quiz to earn its badge and fill in the stamp.</li>
       </ol>
       <p class="note">Your progress is saved only in this browser on this device. Nothing is sent anywhere.</p>
@@ -148,10 +148,10 @@
         name.className = "stamp-name";
         name.textContent = item.title;
         cell.append(stamp, name);
-        if (item.page) {
+        if (earned) {
           const more = document.createElement("span");
           more.className = "more";
-          more.textContent = "★ Badge";
+          more.textContent = "★ Badge earned";
           cell.append(more);
         }
         box.append(cell);

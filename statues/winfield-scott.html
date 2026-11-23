@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Winfield Scott | Romancing the Stone DC</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg?v=2" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png?v=2" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    /* ----- Styles for individual statue pages ----- */
+    .breadcrumb {
+      font-family: var(--heading-font);
+      font-size: .75rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      margin: 22px 0 0;
+      color: var(--ink-soft);
+    }
+    .breadcrumb a { text-decoration: none; }
+    .statue-hero { text-align: center; padding: 18px 0 6px; }
+    .statue-hero h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 6vw, 3rem);
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .statue-hero .where {
+      font-family: var(--heading-font);
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--pompeii);
+      font-size: .9rem;
+      margin: 6px 0 0;
+    }
+
+    /* Fact strip */
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 0;
+      margin: 26px 0 34px;
+      padding: 18px 10px;
+    }
+    .fact { text-align: center; padding: 8px 10px; }
+    .fact dt {
+      font-family: var(--heading-font);
+      font-size: .7rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .fact dd { margin: 2px 0 0; font-size: 1.15rem; font-weight: 600; }
+
+    /* Narrative */
+    .story { max-width: 720px; margin: 0 auto; }
+    .story h2 {
+      font-size: 1.25rem;
+      text-transform: uppercase;
+      color: var(--pompeii);
+      margin: 36px 0 8px;
+    }
+    .story h2 .num { color: var(--silver); margin-right: 10px; }
+    .story p { margin: 0 0 14px; }
+    .story .dropcap::first-letter {
+      float: left;
+      font-family: var(--heading-font);
+      font-size: 3.4rem;
+      line-height: .9;
+      padding: 6px 8px 0 0;
+      color: var(--navy);
+    }
+    .pullquote {
+      margin: 26px 0;
+      padding: 18px 24px;
+      border-left: 4px solid var(--pompeii);
+      background: var(--tablet);
+      font-style: italic;
+      font-size: 1.3rem;
+    }
+    .visit-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+
+    /* ----- Badge quest ----- */
+    .quest { max-width: 760px; margin: 54px auto 0; padding: 30px 26px; }
+    .quest > h2 {
+      text-align: center;
+      margin: 0;
+      font-size: 1.4rem;
+      text-transform: uppercase;
+    }
+    .quest .optional {
+      text-align: center;
+      font-style: italic;
+      color: var(--ink-soft);
+      margin: 4px 0 22px;
+    }
+    .quest-grid {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 26px;
+      align-items: start;
+    }
+    @media (max-width: 640px) { .quest-grid { grid-template-columns: 1fr; } }
+
+    .badge-wrap { text-align: center; }
+    .badge-svg { width: 180px; height: 180px; transition: filter .4s, opacity .4s; }
+    .badge-svg.locked { filter: grayscale(1); opacity: .35; }
+    .badge-status {
+      font-family: var(--heading-font);
+      font-size: .75rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      margin-top: 8px;
+      color: var(--ink-soft);
+    }
+    .badge-status.earned { color: var(--pompeii); }
+
+    .step {
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 16px 18px;
+      margin-bottom: 14px;
+    }
+    .step h3 {
+      margin: 0 0 4px;
+      font-size: 1rem;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .step h3 .check {
+      display: inline-grid;
+      place-items: center;
+      width: 22px; height: 22px;
+      border: 2px solid var(--silver);
+      border-radius: 50%;
+      font-size: .8rem;
+      color: transparent;
+    }
+    .step.done h3 .check { background: var(--pompeii); border-color: var(--pompeii); color: #fff; }
+    .step p { margin: 0 0 10px; font-size: 1.05rem; }
+    .step .note { font-size: .95rem; font-style: italic; color: var(--ink-soft); margin: 8px 0 0; }
+    .step .btn { font-size: .72rem; padding: 9px 14px; cursor: pointer; font-family: var(--heading-font); }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .quiz { display: none; margin-top: 12px; }
+    .quiz.open { display: block; }
+    .q { margin: 0 0 14px; padding: 0; border: 0; }
+    .q legend { font-weight: 600; margin-bottom: 4px; }
+    .q label { display: block; padding: 2px 0; cursor: pointer; }
+    .q label.right { color: #1d6b3a; font-weight: 600; }
+    .q label.wrong { color: var(--pompeii); text-decoration: line-through; }
+    .result { font-weight: 600; margin-top: 8px; }
+    .reset {
+      display: block;
+      text-align: center;
+      margin-top: 14px;
+      font-size: .9rem;
+      color: var(--ink-soft);
+      background: none;
+      border: 0;
+      cursor: pointer;
+      text-decoration: underline;
+      font-family: var(--body-font);
+      width: 100%;
+    }
+
+    /* Shown once the badge is earned: links on to the Quest board */
+    .earned-panel {
+      display: none;
+      margin: 22px 0 0;
+      padding: 18px 20px;
+      border: 1px solid var(--pompeii);
+      background: rgba(155, 45, 32, .05);
+      text-align: center;
+    }
+    .earned-panel.show { display: block; }
+    .earned-panel h3 { margin: 0 0 4px; font-size: 1.05rem; text-transform: uppercase; color: var(--pompeii); }
+    .earned-panel p { margin: 0 0 12px; }
+    .earned-panel .btn-row { justify-content: center; }
+    .earned-panel .btn { font-size: .72rem; padding: 10px 16px; }
+    .quest-link { text-align: center; margin: 10px 0 0; font-size: 1rem; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">
+      <span class="brand-name">Romancing the Stone</span>
+      <span class="brand-place">Washington · DC</span>
+    </a>
+    <nav class="site-nav" aria-label="Site navigation">
+      <a href="../index.html">Home</a>
+      <a href="../map.html">Map</a>
+      <a href="../catalog.html" class="active">Catalog</a>
+      <a href="../journal.html">Journal</a>
+      <a href="../quest.html">Quest</a>
+    </nav>
+  </header>
+  <div class="meander" aria-hidden="true"></div>
+
+  <main class="wrap">
+    <p class="breadcrumb"><a href="../catalog.html">Catalog</a> › Winfield Scott</p>
+
+    <section class="statue-hero">
+      <h1>Winfield Scott</h1>
+      <p class="where">Scott Circle</p>
+    </section>
+
+    <dl class="facts tablet">
+      <div class="fact"><dt>Sculptor</dt><dd>Henry Kirke Brown</dd></div>
+      <div class="fact"><dt>Dedicated</dt><dd>1874</dd></div>
+      <div class="fact"><dt>Material</dt><dd>Bronze</dd></div>
+      <div class="fact"><dt>Setting</dt><dd>Scott Circle, on 16th Street</dd></div>
+    </dl>
+
+    <article class="story">
+      <h2><span class="num">I</span>The Statue</h2>
+      <p class="dropcap">In the middle of Scott Circle, where 16th Street meets Massachusetts and Rhode Island avenues, General Winfield Scott sits upright on a sturdy horse, high above the traffic.</p>
+      <p>Sculptor Henry Kirke Brown made the statue from bronze cannons captured during the Mexican-American War, the war Scott himself had won. It was dedicated in 1874.</p>
+
+      <blockquote class="pullquote">He served under fourteen presidents, and the cannons he captured became his statue.</blockquote>
+
+      <h2><span class="num">II</span>The Man</h2>
+      <p class="dropcap">Winfield Scott was born in Virginia in 1786. He became a hero in the War of 1812, where he was badly wounded at the Battle of Lundy's Lane. Tall, proud, and a stickler for proper uniforms and rules, he was nicknamed “Old Fuss and Feathers.”</p>
+      <p>Scott served as an Army officer for more than 50 years, under 14 presidents, and was the Army's top general from 1841 to 1861. In 1838 he oversaw the forced removal of the Cherokee from their homeland, the Trail of Tears. In the Mexican-American War he landed his army at Veracruz and fought his way inland to capture Mexico City in 1847.</p>
+      <p>He ran for president as the Whig candidate in 1852 and lost to Franklin Pierce. At the start of the Civil War, too old to take the field, he proposed the Anaconda Plan to blockade and squeeze the Confederacy, which became the backbone of Union strategy. He retired in 1861 and died at West Point in 1866.</p>
+
+      <h2><span class="num">III</span>Visiting</h2>
+      <p>Scott Circle is on 16th Street NW at Massachusetts Avenue, about a 10-minute walk from either the Dupont Circle or Farragut North Metro station.</p>
+      <div class="visit-links">
+        <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=38.90724,-77.03651" target="_blank" rel="noopener noreferrer">Directions</a>
+        <a class="btn ghost" href="https://en.wikipedia.org/wiki/Equestrian_statue_of_Winfield_Scott" target="_blank" rel="noopener noreferrer">Read more on Wikipedia</a>
+      </div>
+    </article>
+
+    <!-- ===== Badge quest (optional, saved only in this browser) ===== -->
+    <section class="quest tablet" id="badge">
+      <h2>Earn the Scott Badge</h2>
+      <p class="optional">Optional. Visit the statue and pass a short quiz to claim it.</p>
+
+      <div class="quest-grid">
+        <div class="badge-wrap">
+          <svg class="badge-svg locked" id="badgeSvg" viewBox="0 0 200 200" role="img" aria-label="Winfield Scott badge">
+            <defs>
+              <path id="ringTop" d="M30 100 A70 70 0 0 1 170 100" />
+              <path id="ringBottom" d="M21 100 A79 79 0 0 0 179 100" />
+            </defs>
+            <circle cx="100" cy="100" r="96" fill="#8e98a4" />
+            <circle cx="100" cy="100" r="90" fill="#1e293b" />
+            <circle cx="100" cy="100" r="62" fill="none" stroke="#dfe3e8" stroke-width="1.5" />
+            <text font-family="Cinzel, serif" font-size="13" letter-spacing="3" fill="#dfe3e8">
+              <textPath href="#ringTop" startOffset="50%" text-anchor="middle">WINFIELD SCOTT</textPath>
+            </text>
+            <text font-family="Cinzel, serif" font-size="10" letter-spacing="3" fill="#dfe3e8">
+              <textPath href="#ringBottom" startOffset="50%" text-anchor="middle">ROMANCING THE STONE</textPath>
+            </text>
+            <!-- laurel -->
+            <g fill="#9b2d20">
+              <ellipse cx="62" cy="120" rx="4" ry="9" transform="rotate(-35 62 120)" />
+              <ellipse cx="56" cy="104" rx="4" ry="9" transform="rotate(-15 56 104)" />
+              <ellipse cx="57" cy="87" rx="4" ry="9" transform="rotate(10 57 87)" />
+              <ellipse cx="138" cy="120" rx="4" ry="9" transform="rotate(35 138 120)" />
+              <ellipse cx="144" cy="104" rx="4" ry="9" transform="rotate(15 144 104)" />
+              <ellipse cx="143" cy="87" rx="4" ry="9" transform="rotate(-10 143 87)" />
+            </g>
+            <text x="100" y="112" text-anchor="middle" font-family="Cinzel, serif" font-weight="700" font-size="36" fill="#f3f3f1">WS</text>
+            <text x="100" y="134" text-anchor="middle" font-family="Cinzel, serif" font-size="11" letter-spacing="1" fill="#8e98a4">MDCCCLXXIV</text>
+          </svg>
+          <div class="badge-status" id="badgeStatus">Locked</div>
+        </div>
+
+        <div>
+          <div class="step" id="stepVisit">
+            <h3><span class="check">✓</span>I · Visit the statue</h3>
+            <p>Standing in front of it? Log your visit.</p>
+            <div class="btn-row">
+              <button class="btn" id="checkInGps" type="button">Check in with my location</button>
+              <button class="btn ghost" id="checkInHonor" type="button">I've been here</button>
+            </div>
+            <p class="note" id="visitNote">Location check-in works within about 270 yards of the statue. Your location is checked on your device and never sent anywhere.</p>
+          </div>
+
+          <div class="step" id="stepQuiz">
+            <h3><span class="check">✓</span>II · Pass the quiz</h3>
+            <p>Five easy questions from the story above. Get 4 right to pass.</p>
+            <button class="btn ghost" id="openQuiz" type="button">Start the quiz</button>
+            <form class="quiz" id="quiz"></form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Appears once the badge is earned -->
+      <div class="earned-panel" id="earnedPanel">
+        <h3>Badge Claimed!</h3>
+        <p id="earnedCount">It's now stamped on your Quest board.</p>
+        <div class="btn-row">
+          <a class="btn" href="../quest.html">See my Quest progress →</a>
+          <a class="btn ghost" href="./simon-bolivar.html">Next statue: Simón Bolívar →</a>
+        </div>
+      </div>
+      <p class="quest-link" id="questLink"><a href="../quest.html">View the Quest board →</a></p>
+
+      <button class="reset" id="resetBadge" type="button">Reset my progress for this badge</button>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="meander" aria-hidden="true"></div>
+    <div class="footer-text">Romancing the Stone · Washington DC · <a href="https://www.instagram.com/romancingthestonedc/" target="_blank" rel="noopener noreferrer">@romancingthestonedc</a></div>
+  </footer>
+
+  <script>
+    /* ==========================================================
+       Badge settings for THIS statue.
+       This page is generated by tools/build_statue_pages.py.
+       Edit the content in tools/statue_content/ and rebuild,
+       rather than editing this file by hand.
+       ========================================================== */
+    const BADGE = {
+      "id": "winfield-scott",
+      "name": "Winfield Scott",
+      "lat": 38.90724,
+      "lng": -77.03651,
+      "radiusMeters": 250,
+      "passScore": 4,
+      "questions": [
+        {
+          "q": "What was the statue cast from?",
+          "options": [
+            "Captured cannons",
+            "Church bells",
+            "Old coins"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "What was Scott's nickname?",
+          "options": [
+            "“Old Hickory”",
+            "“Old Fuss and Feathers”",
+            "“Little Phil”"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "Which city did Scott capture in 1847?",
+          "options": [
+            "Havana",
+            "New Orleans",
+            "Mexico City"
+          ],
+          "answer": 2
+        },
+        {
+          "q": "What was Scott's plan for the Civil War called?",
+          "options": [
+            "The Anaconda Plan",
+            "The Cobra Plan",
+            "The Eagle Plan"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "Who beat Scott in the 1852 presidential election?",
+          "options": [
+            "Zachary Taylor",
+            "Franklin Pierce",
+            "Abraham Lincoln"
+          ],
+          "answer": 1
+        }
+      ]
+    };
+    const TOTAL_STATUES = 26;
+
+    /* ---------- Saving progress in this browser ---------- */
+    const STORE_KEY = "rts-badges";
+    function loadAll() {
+      try { return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; } catch { return {}; }
+    }
+    function saveAll(all) {
+      try { localStorage.setItem(STORE_KEY, JSON.stringify(all)); } catch {}
+    }
+    let all = loadAll();
+    let progress = all[BADGE.id] || {};
+    function save() { all[BADGE.id] = progress; saveAll(all); render(); }
+
+    const today = () => new Date().toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+
+    /* ---------- Draw the current state ---------- */
+    const $ = id => document.getElementById(id);
+    function render() {
+      $("stepVisit").classList.toggle("done", !!progress.visited);
+      $("stepQuiz").classList.toggle("done", !!progress.quizPassed);
+
+      if (progress.visited) {
+        $("visitNote").textContent = `Visit logged ${progress.visited}` + (progress.verified ? " · verified by location ✓" : "") + ".";
+      }
+      if (progress.quizPassed) {
+        $("openQuiz").textContent = "Quiz passed ✓";
+        $("openQuiz").disabled = true;
+      }
+
+      const earned = progress.visited && progress.quizPassed;
+      $("badgeSvg").classList.toggle("locked", !earned);
+      $("badgeStatus").classList.toggle("earned", !!earned);
+      $("badgeStatus").textContent = earned
+        ? `Badge earned · ${progress.earned || today()}`
+        : `Locked · ${[progress.visited, progress.quizPassed].filter(Boolean).length} of 2 steps`;
+      if (earned && !progress.earned) { progress.earned = today(); saveAll(Object.assign(all, { [BADGE.id]: progress })); }
+
+      // After claiming: point the visitor to their Quest board
+      $("earnedPanel").classList.toggle("show", !!earned);
+      $("questLink").style.display = earned ? "none" : "";
+      if (earned) {
+        const count = Object.values(all).filter(p => p && p.visited && p.quizPassed).length;
+        $("earnedCount").textContent = `That's ${count} of ${TOTAL_STATUES} badges earned. It's now stamped on your Quest board.`;
+      }
+    }
+
+    /* ---------- Step I: visit ---------- */
+    function distanceMeters(lat1, lng1, lat2, lng2) {
+      const R = 6371000, toRad = d => d * Math.PI / 180;
+      const dLat = toRad(lat2 - lat1), dLng = toRad(lng2 - lng1);
+      const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
+      return 2 * R * Math.asin(Math.sqrt(a));
+    }
+
+    $("checkInGps").addEventListener("click", () => {
+      if (!navigator.geolocation) {
+        $("visitNote").textContent = "Your browser can't share location. Use \"I've been here\" instead.";
+        return;
+      }
+      $("visitNote").textContent = "Checking your location…";
+      navigator.geolocation.getCurrentPosition(pos => {
+        const d = distanceMeters(pos.coords.latitude, pos.coords.longitude, BADGE.lat, BADGE.lng);
+        if (d <= BADGE.radiusMeters) {
+          progress.visited = today();
+          progress.verified = true;
+          save();
+        } else {
+          const miles = (d / 1609.34).toFixed(1);
+          $("visitNote").textContent = `You're about ${miles} miles away. Check in when you're at the statue, or use "I've been here".`;
+        }
+      }, () => {
+        $("visitNote").textContent = "Couldn't get your location. You can still use \"I've been here\".";
+      }, { enableHighAccuracy: true, timeout: 15000 });
+    });
+
+    $("checkInHonor").addEventListener("click", () => {
+      progress.visited = progress.visited || today();
+      save();
+    });
+
+    /* ---------- Step II: quiz ---------- */
+    function buildQuiz() {
+      const form = $("quiz");
+      form.innerHTML = "";
+      BADGE.questions.forEach((item, i) => {
+        const fs = document.createElement("fieldset");
+        fs.className = "q";
+        const lg = document.createElement("legend");
+        lg.textContent = `${i + 1}. ${item.q}`;
+        fs.appendChild(lg);
+        item.options.forEach((opt, j) => {
+          const label = document.createElement("label");
+          const input = document.createElement("input");
+          input.type = "radio";
+          input.name = `q${i}`;
+          input.value = j;
+          label.append(input, " ", opt);
+          fs.appendChild(label);
+        });
+        form.appendChild(fs);
+      });
+      const submit = document.createElement("button");
+      submit.className = "btn";
+      submit.type = "submit";
+      submit.textContent = "Check my answers";
+      const result = document.createElement("div");
+      result.className = "result";
+      result.id = "quizResult";
+      form.append(submit, result);
+    }
+
+    $("openQuiz").addEventListener("click", () => {
+      buildQuiz();
+      $("quiz").classList.add("open");
+      $("openQuiz").style.display = "none";
+    });
+
+    $("quiz").addEventListener("submit", e => {
+      e.preventDefault();
+      let score = 0;
+      BADGE.questions.forEach((item, i) => {
+        const picked = $("quiz").querySelector(`input[name="q${i}"]:checked`);
+        $("quiz").querySelectorAll(`input[name="q${i}"]`).forEach(inp => inp.parentElement.className = "");
+        if (picked) {
+          const ok = Number(picked.value) === item.answer;
+          picked.parentElement.className = ok ? "right" : "wrong";
+          if (ok) score++;
+        }
+      });
+      const result = $("quizResult");
+      if (score >= BADGE.passScore) {
+        result.textContent = `${score} of ${BADGE.questions.length}. Well done, you passed!`;
+        progress.quizPassed = today();
+        save();
+        setTimeout(() => { $("quiz").classList.remove("open"); $("openQuiz").style.display = ""; }, 1800);
+      } else {
+        result.textContent = `${score} of ${BADGE.questions.length}. You need ${BADGE.passScore} to pass. Change your answers and try again.`;
+      }
+    });
+
+    $("resetBadge").addEventListener("click", () => {
+      if (!confirm("Clear your visit and quiz progress for this badge?")) return;
+      progress = {};
+      save();
+      $("openQuiz").textContent = "Start the quiz";
+      $("openQuiz").disabled = false;
+      $("visitNote").textContent = "Location check-in works within about 270 yards of the statue. Your location is checked on your device and never sent anywhere.";
+    });
+
+    render();
+  </script>
+</body>
+</html>
