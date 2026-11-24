@@ -142,7 +142,7 @@
   <main class="wrap">
     <h1 class="page-title">The Catalog</h1>
     <div class="divider" aria-hidden="true">✦</div>
-    <p class="page-intro">A searchable record of monuments, sculptures, and outdoor art across the District. Prefer to browse by location? <a href="./map.html">See the map</a>.</p>
+    <p class="page-intro">The 25 oldest statues and monuments still standing in the District, from the 1790s boundary stones onward, listed oldest first. Prefer to browse by location? <a href="./map.html">See the map</a>.</p>
 
     <div class="controls">
       <input id="searchInput" type="search" placeholder="Search by name, artist, material, or keyword..." />
@@ -174,8 +174,8 @@
         const response = await fetch("./artworks.json");
         if (!response.ok) throw new Error("Failed to load artworks.json");
         allArtworks = await response.json();
-        // Show the list A to Z by title (accents ignored, e.g. "Simón" sorts as "Simon")
-        allArtworks.sort((a, b) => a.title.localeCompare(b.title, "en", { sensitivity: "base" }));
+        // Entries are shown in the order they appear in artworks.json:
+        // oldest to newest, by the year work began.
         populateNeighborhoods(allArtworks);
         renderArtworks();
       } catch (err) {

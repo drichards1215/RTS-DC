@@ -7,7 +7,7 @@ Reads:
   tools/statue_template.html      - the page layout (copied from the original Roosevelt page)
   tools/statue_content/*.py       - the story, badge and quiz for each statue
 Writes:
-  statues/<slug>.html             - one page per statue
+  statues/<slug>.html             - one page per catalog statue that has content
   artworks.json                   - adds a "page" link to each entry (used by Catalog and Quest)
 
 To change the wording on a page, edit its entry in tools/statue_content/ and run this again.
@@ -54,14 +54,19 @@ def main():
     content = load_content()
     template = (TOOLS / "statue_template.html").read_text(encoding="utf-8")
 
-    missing = [i["title"] for i in items if i["title"] not in content]
-    extra = [t for t in content if t not in {i["title"] for i in items}]
-    assert not missing, f"No content for: {missing}"
-    assert not extra, f"Content for titles not in artworks.json: {extra}"
+    # Only catalog entries that have written content get a page. Content for statues
+    # no longer in the catalog is kept (parked) but not built.
+    with_pages = [i for i in items if i["title"] in content]
+    without = [i["title"] for i in items if i["title"] not in content]
+    parked = [t for t in content if t not in {i["title"] for i in items}]
 
-    for n, item in enumerate(items):
+    for item in items:
+        if item["title"] not in content:
+            item.pop("page", None)
+
+    for n, item in enumerate(with_pages):
         c = content[item["title"]]
-        nxt = items[(n + 1) % len(items)]
+        nxt = with_pages[(n + 1) % len(with_pages)]
         title = item["title"]
 
         qs = c["questions"]
@@ -144,7 +149,11 @@ def main():
     with open(art_path, "w", encoding="utf-8", newline="\n") as f:
         json.dump(items, f, ensure_ascii=False, indent=2)
         f.write("\n")
-    print(f"Built {len(items)} statue pages.")
+    print(f"Built {len(with_pages)} statue pages.")
+    if without:
+        print(f"No story yet ({len(without)}): " + ", ".join(without))
+    if parked:
+        print(f"Parked, not in catalog ({len(parked)}): " + ", ".join(parked))
 
 
 if __name__ == "__main__":
