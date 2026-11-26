@@ -10,6 +10,97 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./styles.css" />
+  <style>
+    /* ----- Styles used only on the Story page ----- */
+
+    /* Fresco: the photo is toned to faded mineral colors, then a plaster grain
+       and a soft worn edge are laid over it, inside a Pompeian-red frame. */
+    .fresco {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto 10px;
+      padding: 10px;
+      background: var(--pompeii);
+      box-shadow: 0 6px 18px rgba(30,41,59,.18);
+    }
+    .fresco-inner {
+      position: relative;
+      overflow: hidden;
+      border: 2px solid #e9dcc3;
+      background: #e8dcc4;
+    }
+    .fresco img {
+      display: block;
+      width: 100%;
+      height: auto;
+      filter: sepia(.55) saturate(.65) contrast(.8) brightness(1.1) hue-rotate(-10deg) blur(.4px);
+    }
+    /* plaster grain */
+    .fresco-inner::before {
+      content: "";
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .45 0 0 0 0 .32 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      mix-blend-mode: multiply;
+      opacity: .85;
+      pointer-events: none;
+    }
+    /* blotchy, sun-faded wash and worn edges */
+    .fresco-inner::after {
+      content: "";
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 15%, rgba(244,232,208,.35), transparent 45%),
+        radial-gradient(ellipse at 80% 85%, rgba(244,232,208,.30), transparent 40%),
+        radial-gradient(ellipse at center, transparent 55%, rgba(150,110,70,.45) 100%);
+      mix-blend-mode: soft-light;
+      box-shadow: inset 0 0 40px rgba(120,85,50,.45);
+      pointer-events: none;
+    }
+    .fresco-caption {
+      max-width: 900px;
+      margin: 0 auto 36px;
+      text-align: center;
+      font-size: .95rem;
+      font-style: italic;
+      color: var(--ink-soft);
+    }
+
+    .story { max-width: 720px; margin: 0 auto; padding: 30px 28px; font-size: 1.15rem; line-height: 1.6; }
+    .story p { margin: 0 0 16px; }
+    .story p:last-child { margin-bottom: 0; }
+    .story .lead::first-letter {
+      float: left;
+      font-family: var(--heading-font);
+      font-size: 3.2rem;
+      line-height: .9;
+      padding: 4px 8px 0 0;
+      color: var(--pompeii);
+    }
+
+    .quote { max-width: 680px; margin: 40px auto; text-align: center; }
+    .quote blockquote {
+      margin: 0;
+      font-size: clamp(1.35rem, 3.6vw, 1.75rem);
+      font-style: italic;
+      line-height: 1.4;
+      color: var(--ink);
+    }
+    .quote cite {
+      display: block;
+      margin-top: 12px;
+      font-family: var(--heading-font);
+      font-size: .85rem;
+      font-style: normal;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--pompeii);
+    }
+
+    .contact { max-width: 720px; margin: 0 auto; padding: 28px 24px; text-align: center; }
+    .contact h2 { margin: 0 0 8px; font-size: 1.2rem; text-transform: uppercase; }
+    .contact p { margin: 0 0 20px; color: var(--ink-soft); }
+    .contact .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -32,7 +123,37 @@
   <main class="wrap">
     <h1 class="page-title">The Story</h1>
     <div class="divider" aria-hidden="true">✦</div>
-    <p class="page-intro">The story behind Romancing the Stone, and a way to get in touch, is coming soon.</p>
+
+    <figure style="margin:0">
+      <div class="fresco">
+        <div class="fresco-inner">
+          <img src="./images/arboretum-capitol-columns.jpg" width="2000" height="1500"
+               alt="Tall sandstone columns with ornate Corinthian tops standing in a meadow under a blue sky" />
+        </div>
+      </div>
+      <figcaption class="fresco-caption">The original columns of the U.S. Capitol’s East Portico, now standing in a meadow at the U.S. National Arboretum.</figcaption>
+    </figure>
+
+    <section class="story tablet">
+      <p class="lead">Every day, thousands of Washingtonians walk past the “great men and women” of history, among them Admiral David G. Farragut, President Benito Juárez, inventor Guglielmo Marconi and nurse Jane Delano, without ever noticing them.</p>
+      <p>Romancing the Stone stops to look. Where art meets history, it revisits the lives behind D.C.’s statues and monuments to find what they say about our values, then and today.</p>
+      <p>This site is your field guide. Find every statue on <a href="./map.html">the Map</a>, look one up in <a href="./catalog.html">the Catalog</a>, read photos and field notes in <a href="./journal.html">the Journal</a>, and set out on <a href="./quest.html">the Quest</a> to visit each one and earn its badge. Then share what you find with <a href="./community.html">the Community</a>.</p>
+    </section>
+
+    <div class="quote">
+      <div class="divider" aria-hidden="true">✦</div>
+      <blockquote>“Men did not love Rome because she was great. She was great because they had loved her.”</blockquote>
+      <cite>G. K. Chesterton · <i>Orthodoxy</i> (1908)</cite>
+    </div>
+
+    <section class="contact tablet">
+      <h2>Get in Touch</h2>
+      <p>Spotted a statue we missed, or have a story to share? Send a message on Instagram or say hello on Discord.</p>
+      <div class="actions">
+        <a class="btn" href="https://www.instagram.com/romancingthestonedc/" target="_blank" rel="noopener noreferrer">Message on Instagram</a>
+        <a class="btn" href="https://discord.gg/t5j6hXdBv" target="_blank" rel="noopener noreferrer">Say Hello on Discord</a>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
