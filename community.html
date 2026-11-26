@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=2" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png?v=2" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Community | Romancing the Stone DC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <style>
+    /* ----- Styles used only on the Community page ----- */
+    .channels { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; max-width: 820px; margin: 0 auto; }
+    .channel { padding: 28px 24px; text-align: center; }
+    .channel h2 { margin: 0 0 8px; font-size: 1.2rem; text-transform: uppercase; }
+    .channel p { margin: 0 0 20px; color: var(--ink-soft); }
+    .channel .btn.soon { opacity: .55; cursor: default; pointer-events: none; }
+    .channel .soon-note { display: block; margin-top: 10px; font-size: .9rem; font-style: italic; color: var(--ink-soft); }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="./index.html">
+      <span class="brand-name">Romancing the Stone</span>
+      <span class="brand-place">Washington · DC</span>
+    </a>
+    <nav class="site-nav" aria-label="Site navigation">
+      <a href="./index.html">Home</a>
+      <a href="./map.html">Map</a>
+      <a href="./catalog.html">Catalog</a>
+      <a href="./journal.html">Journal</a>
+      <a href="./quest.html">Quest</a>
+    </nav>
+  </header>
+  <div class="meander" aria-hidden="true"></div>
+
+  <main class="wrap">
+    <h1 class="page-title">The Community</h1>
+    <div class="divider" aria-hidden="true">✦</div>
+    <p class="page-intro">Fellow statue hunters, this way. Share your photos, swap stories, and follow the quest with others who love D.C.’s stone and bronze.</p>
+
+    <section class="channels">
+      <div class="channel tablet">
+        <h2>Instagram</h2>
+        <p>Photos and stories from the statues of D.C. Follow along and tag your own finds.</p>
+        <a class="btn" href="https://www.instagram.com/romancingthestonedc/" target="_blank" rel="noopener noreferrer">Follow @romancingthestonedc</a>
+      </div>
+      <div class="channel tablet">
+        <h2>Discord</h2>
+        <p>Chat with other explorers, plan walks, and compare badges.</p>
+        <span class="btn soon" aria-disabled="true">Join the Discord</span>
+        <span class="soon-note">Coming soon</span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="meander" aria-hidden="true"></div>
+    <div class="footer-text">Romancing the Stone · Washington DC · <a href="https://www.instagram.com/romancingthestonedc/" target="_blank" rel="noopener noreferrer">@romancingthestonedc</a></div>
+  </footer>
+</body>
+</html>
