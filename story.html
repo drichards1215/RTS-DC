@@ -13,50 +13,17 @@
   <style>
     /* ----- Styles used only on the Story page ----- */
 
-    /* Fresco: the photo is toned to faded mineral colors, then a plaster grain
-       and a soft worn edge are laid over it, inside a Pompeian-red frame. */
-    .fresco {
-      position: relative;
+    /* Mosaic: a script turns the photo into rows of small stone tiles
+       (tesserae) set in light mortar, with a tiled border, like a Roman floor.
+       If the script can't run, the plain photo shows instead. */
+    .mosaic {
       max-width: 900px;
       margin: 0 auto 10px;
-      padding: 10px;
-      background: var(--pompeii);
       box-shadow: 0 6px 18px rgba(30,41,59,.18);
     }
-    .fresco-inner {
-      position: relative;
-      overflow: hidden;
-      border: 2px solid #e9dcc3;
-      background: #e8dcc4;
-    }
-    .fresco img {
-      display: block;
-      width: 100%;
-      height: auto;
-      filter: sepia(.55) saturate(.65) contrast(.8) brightness(1.1) hue-rotate(-10deg) blur(.4px);
-    }
-    /* plaster grain */
-    .fresco-inner::before {
-      content: "";
-      position: absolute; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .45 0 0 0 0 .32 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      mix-blend-mode: multiply;
-      opacity: .85;
-      pointer-events: none;
-    }
-    /* blotchy, sun-faded wash and worn edges */
-    .fresco-inner::after {
-      content: "";
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse at 20% 15%, rgba(244,232,208,.35), transparent 45%),
-        radial-gradient(ellipse at 80% 85%, rgba(244,232,208,.30), transparent 40%),
-        radial-gradient(ellipse at center, transparent 55%, rgba(150,110,70,.45) 100%);
-      mix-blend-mode: soft-light;
-      box-shadow: inset 0 0 40px rgba(120,85,50,.45);
-      pointer-events: none;
-    }
-    .fresco-caption {
+    .mosaic img, .mosaic canvas { display: block; width: 100%; height: auto; }
+    .mosaic [hidden] { display: none; }
+    .mosaic-caption {
       max-width: 900px;
       margin: 0 auto 36px;
       text-align: center;
@@ -65,7 +32,7 @@
       color: var(--ink-soft);
     }
 
-    .story { max-width: 720px; margin: 0 auto; padding: 30px 28px; font-size: 1.15rem; line-height: 1.6; }
+    .story { max-width: 720px; margin: 0 auto 36px; padding: 30px 28px; font-size: 1.15rem; line-height: 1.6; }
     .story p { margin: 0 0 16px; }
     .story p:last-child { margin-bottom: 0; }
     .story .lead::first-letter {
@@ -77,7 +44,7 @@
       color: var(--pompeii);
     }
 
-    .quote { max-width: 680px; margin: 40px auto; text-align: center; }
+    .quote { max-width: 680px; margin: 10px auto 34px; text-align: center; }
     .quote blockquote {
       margin: 0;
       font-size: clamp(1.35rem, 3.6vw, 1.75rem);
@@ -99,7 +66,34 @@
     .contact { max-width: 720px; margin: 0 auto; padding: 28px 24px; text-align: center; }
     .contact h2 { margin: 0 0 8px; font-size: 1.2rem; text-transform: uppercase; }
     .contact p { margin: 0 0 20px; color: var(--ink-soft); }
-    .contact .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+    .contact-form { max-width: 520px; margin: 0 auto; text-align: left; }
+    .contact-form label {
+      display: block;
+      margin: 14px 0 4px;
+      font-family: var(--heading-font);
+      font-size: .8rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .contact-form input, .contact-form textarea {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px 12px;
+      font: inherit;
+      font-size: 1.05rem;
+      color: var(--ink);
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 0;
+    }
+    .contact-form textarea { resize: vertical; min-height: 130px; }
+    .contact-form input:focus, .contact-form textarea:focus { outline: 2px solid var(--pompeii); outline-offset: 0; border-color: var(--pompeii); }
+    .contact-form .btn { display: block; margin: 20px auto 0; cursor: pointer; }
+    .contact-form .honey { position: absolute; left: -9999px; width: 1px; height: 1px; }
+    .contact .sent-note { color: var(--pompeii); font-style: italic; font-size: 1.1rem; }
+    .contact .elsewhere { margin: 22px 0 0; font-size: .95rem; }
   </style>
 </head>
 <body>
@@ -124,14 +118,19 @@
     <h1 class="page-title">The Story</h1>
     <div class="divider" aria-hidden="true">✦</div>
 
+    <div class="quote">
+      <blockquote>“Men did not love Rome because she was great. She was great because they had loved her.”</blockquote>
+      <cite>G. K. Chesterton · <i>Orthodoxy</i> (1908)</cite>
+    </div>
+
     <figure style="margin:0">
-      <div class="fresco">
-        <div class="fresco-inner">
-          <img src="./images/arboretum-capitol-columns.jpg" width="2000" height="1500"
-               alt="Tall sandstone columns with ornate Corinthian tops standing in a meadow under a blue sky" />
-        </div>
+      <div class="mosaic">
+        <img id="mosaicSrc" src="./images/arboretum-capitol-columns.jpg" width="2000" height="1500"
+             alt="Tall sandstone columns with ornate Corinthian tops standing in a meadow under a blue sky" />
+        <canvas id="mosaicArt" hidden role="img"
+                aria-label="Tall sandstone columns with ornate Corinthian tops standing in a meadow under a blue sky, rendered as a Roman tile mosaic"></canvas>
       </div>
-      <figcaption class="fresco-caption">The original columns of the U.S. Capitol’s East Portico, now standing in a meadow at the U.S. National Arboretum.</figcaption>
+      <figcaption class="mosaic-caption">The original columns of the U.S. Capitol’s East Portico, now standing in a meadow at the U.S. National Arboretum.</figcaption>
     </figure>
 
     <section class="story tablet">
@@ -140,19 +139,35 @@
       <p>This site is your field guide. Find every statue on <a href="./map.html">the Map</a>, look one up in <a href="./catalog.html">the Catalog</a>, read photos and field notes in <a href="./journal.html">the Journal</a>, and set out on <a href="./quest.html">the Quest</a> to visit each one and earn its badge. Then share what you find with <a href="./community.html">the Community</a>.</p>
     </section>
 
-    <div class="quote">
-      <div class="divider" aria-hidden="true">✦</div>
-      <blockquote>“Men did not love Rome because she was great. She was great because they had loved her.”</blockquote>
-      <cite>G. K. Chesterton · <i>Orthodoxy</i> (1908)</cite>
-    </div>
-
     <section class="contact tablet">
       <h2>Get in Touch</h2>
-      <p>Spotted a statue we missed, or have a story to share? Send a message on Instagram or say hello on Discord.</p>
-      <div class="actions">
-        <a class="btn" href="https://www.instagram.com/romancingthestonedc/" target="_blank" rel="noopener noreferrer">Message on Instagram</a>
-        <a class="btn" href="https://discord.gg/t5j6hXdBv" target="_blank" rel="noopener noreferrer">Say Hello on Discord</a>
-      </div>
+      <p>Spotted a statue we missed, or have a story to share? Send a note below.</p>
+
+      <p class="sent-note" id="sentNote" hidden>Thank you! Your message is on its way.</p>
+
+      <!-- Messages are delivered by FormSubmit (formsubmit.co), a free form-to-email service. -->
+      <form class="contact-form" id="contactForm" action="https://formsubmit.co/1d39cfcadef619b96741e68cc2780e5f" method="POST">
+        <input type="hidden" name="_subject" value="New message from the Romancing the Stone website" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_next" id="nextUrl" value="" />
+        <!-- Spam trap: people never see or fill this; bots do. -->
+        <input type="text" name="_honey" class="honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+        <label for="cf-name">Name</label>
+        <input id="cf-name" type="text" name="name" autocomplete="name" required />
+
+        <label for="cf-email">Email</label>
+        <input id="cf-email" type="email" name="email" autocomplete="email" required />
+
+        <label for="cf-message">Message</label>
+        <textarea id="cf-message" name="message" rows="6" required></textarea>
+
+        <button class="btn" type="submit">Send Message</button>
+      </form>
+
+      <p class="elsewhere">Or find us on
+        <a href="https://www.instagram.com/romancingthestonedc/" target="_blank" rel="noopener noreferrer">Instagram</a> and
+        <a href="https://discord.gg/t5j6hXdBv" target="_blank" rel="noopener noreferrer">Discord</a>.</p>
     </section>
   </main>
 
@@ -160,5 +175,100 @@
     <div class="meander" aria-hidden="true"></div>
     <div class="footer-text">Romancing the Stone · Washington DC · <a href="https://www.instagram.com/romancingthestonedc/" target="_blank" rel="noopener noreferrer">@romancingthestonedc</a></div>
   </footer>
+
+  <script>
+    // ----- Contact form -----
+    // After sending, FormSubmit returns the visitor to this page with ?sent=1.
+    (function () {
+      const here = location.href.split("?")[0].split("#")[0];
+      document.getElementById("nextUrl").value = here + "?sent=1#sentNote";
+      if (new URLSearchParams(location.search).get("sent") === "1") {
+        document.getElementById("sentNote").hidden = false;
+      }
+    })();
+
+    // ----- Roman mosaic -----
+    // Shrinks the photo to one color per tile, then paints each tile as a
+    // slightly uneven stone with light mortar between, inside a tiled border.
+    (function () {
+      const img = document.getElementById("mosaicSrc");
+      const art = document.getElementById("mosaicArt");
+
+      const COLS = 96;    // tiles across the picture
+      const TILE = 14;    // size of each tile in canvas pixels
+      const GAP = 2.2;    // mortar width
+      const BORDER = ["#2c2a27", "#e8dfcc", "#9b2d20", "#e8dfcc"]; // outer to inner rows
+      const MORTAR = "#d8d0bf";
+
+      // Same "random" wobble on every visit, so the mosaic never changes.
+      let seed = 1828;
+      function rand() {
+        seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
+        let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+        t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      }
+      function hexToRgb(h) { const n = parseInt(h.slice(1), 16); return [n >> 16, (n >> 8) & 255, n & 255]; }
+
+      function draw() {
+        const rows = Math.round(COLS * img.naturalHeight / img.naturalWidth);
+
+        // Average the photo down to one pixel per tile (in two steps for a cleaner average).
+        const mid = document.createElement("canvas");
+        mid.width = COLS * 4; mid.height = rows * 4;
+        mid.getContext("2d").drawImage(img, 0, 0, mid.width, mid.height);
+        const small = document.createElement("canvas");
+        small.width = COLS; small.height = rows;
+        const sctx = small.getContext("2d");
+        sctx.drawImage(mid, 0, 0, COLS, rows);
+        const px = sctx.getImageData(0, 0, COLS, rows).data;
+
+        const b = BORDER.length;
+        const gw = COLS + b * 2, gh = rows + b * 2;
+        art.width = gw * TILE; art.height = gh * TILE;
+        const ctx = art.getContext("2d");
+        ctx.fillStyle = MORTAR;
+        ctx.fillRect(0, 0, art.width, art.height);
+
+        for (let gy = 0; gy < gh; gy++) {
+          for (let gx = 0; gx < gw; gx++) {
+            const ring = Math.min(gx, gy, gw - 1 - gx, gh - 1 - gy);
+            let rgb;
+            if (ring < b) {
+              rgb = hexToRgb(BORDER[ring]);
+            } else {
+              const i = ((gy - b) * COLS + (gx - b)) * 4;
+              rgb = [px[i], px[i + 1], px[i + 2]];
+            }
+            // Each stone varies a little in shade, like real cut stone.
+            const shade = (rand() - 0.5) * 16;
+            const c = rgb.map(v => Math.max(0, Math.min(255, Math.round(v + shade + (rand() - 0.5) * 6))));
+
+            const x = gx * TILE, y = gy * TILE, h = GAP / 2, j = () => (rand() - 0.5) * 2.2;
+            ctx.beginPath();
+            ctx.moveTo(x + h + j(), y + h + j());
+            ctx.lineTo(x + TILE - h + j(), y + h + j());
+            ctx.lineTo(x + TILE - h + j(), y + TILE - h + j());
+            ctx.lineTo(x + h + j(), y + TILE - h + j());
+            ctx.closePath();
+            ctx.fillStyle = `rgb(${c[0]},${c[1]},${c[2]})`;
+            ctx.fill();
+            // Faint light/dark edges give each stone a little depth.
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = "rgba(255,255,255,.10)";
+            ctx.beginPath(); ctx.moveTo(x + h, y + h + .5); ctx.lineTo(x + TILE - h, y + h + .5); ctx.stroke();
+            ctx.strokeStyle = "rgba(0,0,0,.10)";
+            ctx.beginPath(); ctx.moveTo(x + h, y + TILE - h - .5); ctx.lineTo(x + TILE - h, y + TILE - h - .5); ctx.stroke();
+          }
+        }
+        art.hidden = false;
+        img.hidden = true;
+      }
+
+      function tryDraw() { try { draw(); } catch (e) { /* keep the plain photo */ } }
+      if (img.complete && img.naturalWidth) tryDraw();
+      else img.addEventListener("load", tryDraw);
+    })();
+  </script>
 </body>
 </html>
